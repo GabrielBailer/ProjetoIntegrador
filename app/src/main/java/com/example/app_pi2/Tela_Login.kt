@@ -27,7 +27,8 @@ class Tela_Login : AppCompatActivity() {
         }
 
         binding.btnCriarConta.setOnClickListener {
-            Toast.makeText(this, "Criar conta (não implementado)", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, Crud::class.java)
+            startActivity(intent)
         }
     }
 }

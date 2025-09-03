@@ -5,7 +5,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app_pi2.databinding.ActivityCrudBinding
-import com.example.app_pi2.Usuario // Added import
 
 class Crud : AppCompatActivity() {
 
