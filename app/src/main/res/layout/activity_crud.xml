@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <!-- ID -->
+    <EditText
+        android:id="@+id/etId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="ID"
+        android:inputType="number"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Nome do Responsável -->
+    <EditText
+        android:id="@+id/etNomeResponsavel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nome completo do responsável"
+        app:layout_constraintTop_toBottomOf="@id/etId"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Nome do Usuário -->
+    <EditText
+        android:id="@+id/etNomeUsuario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nome completo do usuário"
+        app:layout_constraintTop_toBottomOf="@id/etNomeResponsavel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Nome do Professor -->
+    <EditText
+        android:id="@+id/etNomeProfessor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Nome do professor vinculado"
+        app:layout_constraintTop_toBottomOf="@id/etNomeUsuario"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Endereço -->
+    <EditText
+        android:id="@+id/etEndereco"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Endereço"
+        app:layout_constraintTop_toBottomOf="@id/etNomeProfessor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Email -->
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toBottomOf="@id/etEndereco"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Senha -->
+    <EditText
+        android:id="@+id/etSenha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Criar senha"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/etEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Botões -->
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/etSenha"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp">
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Adicionar"
+            android:backgroundTint="@color/cor_botao_primario"
+            android:textColor="@color/white"
+            android:layout_marginEnd="4dp"/>
+
+        <Button
+            android:id="@+id/btnUpdate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Editar"
+            android:backgroundTint="@color/cor_botao_primario"
+            android:textColor="@color/white"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"/>
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Excluir"
+            android:backgroundTint="@color/cor_botao_primario"
+            android:textColor="@color/white"
+            android:layout_marginStart="4dp"/>
+    </LinearLayout>
+
+    <!-- Lista -->
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/buttonLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

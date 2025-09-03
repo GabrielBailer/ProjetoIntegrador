@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "187745823506",
+    "project_id": "app-falacomigo",
+    "storage_bucket": "app-falacomigo.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187745823506:android:bc12384f7d26a7ca13e1cb",
+        "android_client_info": {
+          "package_name": "com.example.app_pi2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1V8_tAQc2zzaWxxNZUZ-DiJKUpPZWS_k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
