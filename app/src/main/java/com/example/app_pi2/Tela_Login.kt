@@ -26,6 +26,11 @@ class Tela_Login : AppCompatActivity() {
             }
         }
 
+        binding.textEsqueciSenha.setOnClickListener {
+            val intent = Intent(this, RecuperarSenhaActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.btnCriarConta.setOnClickListener {
             val intent = Intent(this, Crud::class.java)
             startActivity(intent)
