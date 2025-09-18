@@ -40,17 +40,17 @@ android {
 }
 
 dependencies {
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
 
-    // Firebase
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.analytics.ktx) // Se o sync der erro aqui, pode ser libs.firebase.analytics
-    implementation(libs.firebase.ai) // Mantendo sua dependência original
+    // 🔹 Firebase usando BOM
+    implementation(platform(libs.firebase.bom))          // garante versões compatíveis
+    implementation(libs.firebase.auth.ktx)               // Firebase Authentication
+    implementation(libs.firebase.firestore.ktx)          // Firebase Firestore
+    implementation(libs.firebase.analytics.ktx)          // Analytics opcional
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
