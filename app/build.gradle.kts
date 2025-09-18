@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.google.gms.google.services)
+    id("org.jetbrains.kotlin.kapt") // Add this line
 }
 
 android {
@@ -51,6 +52,12 @@ dependencies {
     implementation(libs.firebase.auth.ktx)               // Firebase Authentication
     implementation(libs.firebase.firestore.ktx)          // Firebase Firestore
     implementation(libs.firebase.analytics.ktx)          // Analytics opcional
+    implementation("com.google.firebase:firebase-storage")
+
+    // Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -13,6 +13,7 @@ googleGmsGoogleServices = "4.4.3"
 firebaseAi = "17.2.0"
 firebaseBom = "33.1.0"
 firebaseAnalyticsKtx = "22.0.0"
+room = "2.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -28,6 +29,9 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-analytics-ktx = { group = "com.google.firebase", name = "firebase-analytics-ktx", version.ref = "firebaseAnalyticsKtx" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx" }       # sem version.ref
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx" } # sem version.ref
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
