@@ -50,7 +50,7 @@ class Crud : AppCompatActivity() {
         if (email.isNotEmpty() && senha.isNotEmpty()) {
             auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
+                    val uid = task.result?.user?.uid ?: return@addOnCompleteListener
                     val usuario = Usuario(
                         nomeResponsavel = binding.etNomeResponsavel.text.toString(),
                         nomeUsuario = binding.etNomeUsuario.text.toString(),
@@ -63,13 +63,13 @@ class Crud : AppCompatActivity() {
                             usuarioList.add(usuario)
                             adapter.notifyItemInserted(usuarioList.size - 1)
                             limparCampos()
-                            Toast.makeText(this, "Usuário cadastrado no Firebase!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Usuário cadastrado no Firestore!", Toast.LENGTH_SHORT).show()
                         }
                         .addOnFailureListener { e ->
-                            Toast.makeText(this, "Erro ao salvar: ${e.message}", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Erro ao salvar no Firestore: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
                 } else {
-                    Toast.makeText(this, "Erro: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Erro Auth: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         } else {
