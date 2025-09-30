@@ -6,12 +6,14 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class RecuperarSenhaActivity : AppCompatActivity() {
 
     private lateinit var editEmail: EditText
     private lateinit var btnEnviar: Button
     private lateinit var btnVoltar: Button
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +22,7 @@ class RecuperarSenhaActivity : AppCompatActivity() {
         editEmail = findViewById(R.id.edit_email)
         btnEnviar = findViewById(R.id.btn_enviar)
         btnVoltar = findViewById(R.id.btn_voltar)
+        auth = FirebaseAuth.getInstance()
 
         btnEnviar.setOnClickListener {
             enviarEmailRecuperacao()
@@ -43,22 +46,20 @@ class RecuperarSenhaActivity : AppCompatActivity() {
             return
         }
 
-        if (verificarEmailNoBanco(email)) {
-            mostrarMensagem("Email de recuperação enviado para: $email")
-        } else {
-            mostrarMensagem("Email não encontrado no sistema")
-        }
-    }
-
-    private fun verificarEmailNoBanco(email: String): Boolean {
-        val emailsCadastrados = listOf("admin@email.com", "usuario@email.com")
-        return emailsCadastrados.contains(email)
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    mostrarMensagem("Email de recuperação enviado para: $email")
+                } else {
+                    mostrarMensagem("Erro: ${task.exception?.message}")
+                }
+            }
     }
 
     private fun voltarParaLogin() {
         val intent = Intent(this, Tela_Login::class.java)
         startActivity(intent)
-        finish() // Fecha esta tela
+        finish()
     }
 
     private fun mostrarMensagem(mensagem: String) {
