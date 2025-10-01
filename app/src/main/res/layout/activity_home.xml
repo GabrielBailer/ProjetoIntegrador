@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="324dp"
+        android:layout_height="116dp"
+        android:contentDescription="@string/logo_content_description"
+        android:src="@drawable/logo_fc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnAdicionar"
+        android:layout_width="92dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/cor_botao_primario"
+        android:text="+"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintHorizontal_bias="0.035"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+
+    <TextView
+        android:id="@+id/text_criar_interacoes"
+        android:layout_width="247dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="8dp"
+        android:text="Criar Interações"
+        android:textColor="@color/cor_texto_principal"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnAdicionar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnAdicionar"
+        app:layout_constraintTop_toTopOf="@+id/btnAdicionar" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="0dp"
+        android:layout_height="106dp"
+        android:layout_marginTop="24dp"
+        android:text="Item 1"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAdicionar"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="0dp"
+        android:layout_height="109dp"
+        android:layout_marginTop="16dp"
+        android:text="Item 2"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button3"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"/>
+
+    <LinearLayout
+        android:id="@+id/layoutCategorias"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button2">
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
