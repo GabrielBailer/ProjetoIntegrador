@@ -24,6 +24,7 @@
         <activity android:name=".TelaLogin" />
         <activity android:name=".NovoCadastro" />
         <activity android:name=".RecuperarSenha" android:exported="false" />
+        <activity android:name=".NovaInteracao" />
 
         <activity android:name=".Home" />
 
