@@ -9,34 +9,48 @@
 
     <ImageView
         android:id="@+id/ivLogo"
-        android:layout_width="324dp"
-        android:layout_height="116dp"
+        android:layout_width="268dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="4dp"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/logo_content_description"
+        android:scaleType="centerCrop"
         android:src="@drawable/logo_fc"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="-64dp" />
+
+    <ImageButton
+        android:id="@+id/btnConfiguracoes"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/button_circular_background"
+        android:contentDescription="Configurações"
+        android:padding="12dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_settings"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/btnAdicionar"
-        android:layout_width="92dp"
-        android:layout_height="95dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/cor_botao_primario"
-        android:text="+"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.035"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/button_circular_background"
+        android:contentDescription="Adicionar"
+        android:padding="12dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_add"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivLogo" />
 
     <TextView
         android:id="@+id/text_criar_interacoes"
-        android:layout_width="247dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:text="Criar Interações"
         android:textColor="@color/cor_texto_principal"
         android:textSize="18sp"
@@ -55,17 +69,19 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="261dp">
-
     </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/layoutCategorias"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAdicionar"
+        tools:listitem="@layout/item_interacao" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

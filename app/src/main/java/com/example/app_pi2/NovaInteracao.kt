@@ -6,15 +6,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
+
+
 import com.example.app_pi2.databinding.ActivityNovaInteracaoBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.*
 
 class NovaInteracao : AppCompatActivity() {
@@ -25,6 +22,7 @@ class NovaInteracao : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var storage: FirebaseStorage
     private lateinit var dbLocal: AppDatabase
+
 
     companion object {
         private const val IMAGE_PICK_CODE = 1001
@@ -38,6 +36,7 @@ class NovaInteracao : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         storage = FirebaseStorage.getInstance()
         dbLocal = AppDatabase.getInstance(applicationContext) // singleton recomendado
+
 
         binding.btnSelecionarImagem.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -54,64 +53,63 @@ class NovaInteracao : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+
+            // Mostra um feedback de progresso (opcional, mas recomendado)
+            binding.btnSalvarInteracao.isEnabled = false
+            binding.btnSalvarInteracao.text = "Salvando..."
+
             val id = UUID.randomUUID().toString()
 
             if (imageUri != null) {
                 val storageRef = storage.reference.child("interacoes/$id.jpg")
-                storageRef.putFile(imageUri!!)
-                    .addOnSuccessListener {
+                storageRef.putFile(imageUri!!).addOnSuccessListener {
                         storageRef.downloadUrl.addOnSuccessListener { uri ->
-                            salvarInteracao(id, titulo, descricao, uri.toString())
+                            salvarInteracaoNoFirestore(id, titulo, descricao, uri.toString())
                         }
                     }
-                    .addOnFailureListener {
-                        Toast.makeText(this, "Erro ao enviar imagem!", Toast.LENGTH_SHORT).show()
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Erro ao enviar imagem: ${e.message}", Toast.LENGTH_SHORT).show()
+                        binding.btnSalvarInteracao.isEnabled = true
+                        binding.btnSalvarInteracao.text = "Salvar"
                     }
             } else {
-                salvarInteracao(id, titulo, descricao, null)
+                salvarInteracaoNoFirestore(id, titulo, descricao, null)
             }
         }
     }
 
-    private fun salvarInteracao(id: String, titulo: String, descricao: String, imageUrl: String?) {
-        val interacao = Interacao(
-            id = id,
-            titulo = titulo,
-            descricao = descricao,
-            imagem = imageUrl
-        )
 
+    private fun salvarInteracaoNoFirestore(id: String, titulo: String, descricao: String, imageUrl: String?) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId == null) {
             Toast.makeText(this, "Usuário não autenticado!", Toast.LENGTH_SHORT).show()
+            binding.btnSalvarInteracao.isEnabled = true
+            binding.btnSalvarInteracao.text = "Salvar"
             return
         }
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            // Salvar localmente no Room
-            dbLocal.interacaoDao().insert(interacao)
+        val map = hashMapOf(
+            "id" to id,
+            "titulo" to titulo,
+            "descricao" to descricao,
+            "imagem" to (imageUrl ?: "")
+        )
 
-            // Salvar no Firestore
-            val map = hashMapOf(
-                "id" to interacao.id,
-                "titulo" to interacao.titulo,
-                "descricao" to interacao.descricao,
-                "imagem" to (interacao.imagem ?: "")
-            )
+        firestore.collection("usuarios")
+            .document(userId)
+            .collection("interacoes")
+            .document(id)
+            .set(map)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Interação salva!", Toast.LENGTH_SHORT).show()
+                finish() // Volta para a tela Home, que irá atualizar a lista
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Erro ao salvar no Firebase: ${e.message}", Toast.LENGTH_SHORT).show()
+                binding.btnSalvarInteracao.isEnabled = true
+                binding.btnSalvarInteracao.text = "Salvar"
+            }
 
-            firestore.collection("usuarios")
-                .document(userId)
-                .collection("interacoes")
-                .document(id)
-                .set(map)
-                .addOnSuccessListener {
-                    Toast.makeText(this@NovaInteracao, "Interação salva!", Toast.LENGTH_SHORT).show()
-                    finish() // volta para a tela principal
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this@NovaInteracao, "Erro ao salvar no Firebase: ${it.message}", Toast.LENGTH_SHORT).show()
-                }
-        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -121,4 +119,6 @@ class NovaInteracao : AppCompatActivity() {
             binding.imgInteracao.setImageURI(imageUri)
         }
     }
+
 }
+

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
     android:padding="16dp">
 
     <LinearLayout
@@ -30,17 +31,20 @@
             android:id="@+id/etNomeInteracao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:hint="Nome da interação"
-            android:layout_marginTop="16dp"/>
+            android:textColorHint="#5F5F5F" />
+
 
         <EditText
             android:id="@+id/etDescricaoInteracao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Descrição"
             android:layout_marginTop="8dp"
+            android:hint="Descrição"
             android:inputType="textMultiLine"
-            android:minLines="3"/>
+            android:minLines="3"
+            android:textColorHint="#5F5F5F" />
 
         <Button
             android:id="@+id/btnSalvarInteracao"

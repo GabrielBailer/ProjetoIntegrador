@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:padding="20dp">
+
+
+    <ImageButton
+        android:id="@+id/btnInteracao"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="128dp"
+        android:background="@drawable/button_circular_background"
+        android:contentDescription="Adicionar"
+        android:padding="18dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_interacao"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnUsuario"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="128dp"
+        android:background="@drawable/button_circular_background"
+        android:contentDescription="Adicionar"
+        android:padding="12dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_config"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btnInteracao"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    <ImageView
+        android:id="@+id/ivLogo2"
+        android:layout_width="130dp"
+        android:layout_height="84dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@string/logo_content_description"
+        android:src="@drawable/logo_fc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
