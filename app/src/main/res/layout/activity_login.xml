@@ -24,7 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:hint="Username / E-mail"
+        android:hint="Digite seu E-mail"
         android:textColor="#282828"
         android:textColorHint="#5F5F5F"
         app:layout_constraintEnd_toEndOf="parent"

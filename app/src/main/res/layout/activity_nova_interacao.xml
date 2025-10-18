@@ -13,18 +13,34 @@
 
         <ImageView
             android:id="@+id/imgInteracao"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            android:background="@color/black"
-            android:contentDescription="Imagem da interação"
-            android:src="@drawable/ic_launcher_background" />
+            android:layout_width="143dp"
+            android:layout_height="139dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_launcher_foreground" />
 
-        <Button
-            android:id="@+id/btnSelecionarImagem"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selecionar Imagem"
+            android:text="Selecione a Imagem"
+            android:layout_marginTop="16dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerImagem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecione a Categoria"
+            android:layout_marginTop="16dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"/>
 
         <EditText
@@ -33,17 +49,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Nome da interação"
-            android:textColorHint="#5F5F5F" />
-
-
-        <EditText
-            android:id="@+id/etDescricaoInteracao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="Descrição"
-            android:inputType="textMultiLine"
-            android:minLines="3"
             android:textColorHint="#5F5F5F" />
 
         <Button

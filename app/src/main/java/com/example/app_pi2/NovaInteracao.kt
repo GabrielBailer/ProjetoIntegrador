@@ -1,9 +1,13 @@
 package com.example.app_pi2
 
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -37,24 +41,17 @@ class NovaInteracao : AppCompatActivity() {
         storage = FirebaseStorage.getInstance()
         dbLocal = AppDatabase.getInstance(applicationContext) // singleton recomendado
 
-
-        binding.btnSelecionarImagem.setOnClickListener {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.type = "image/*"
-            startActivityForResult(intent, IMAGE_PICK_CODE)
-        }
+        setupImageSpinner()
+        setupCategorySpinner()
 
         binding.btnSalvarInteracao.setOnClickListener {
             val titulo = binding.etNomeInteracao.text.toString()
-            val descricao = binding.etDescricaoInteracao.text.toString()
 
-            if (titulo.isEmpty() || descricao.isEmpty()) {
-                Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
+            if (titulo.isEmpty()) {
+                Toast.makeText(this, "Preencha o nome da interação!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-
-            // Mostra um feedback de progresso (opcional, mas recomendado)
             binding.btnSalvarInteracao.isEnabled = false
             binding.btnSalvarInteracao.text = "Salvando..."
 
@@ -62,9 +59,18 @@ class NovaInteracao : AppCompatActivity() {
 
             if (imageUri != null) {
                 val storageRef = storage.reference.child("interacoes/$id.jpg")
-                storageRef.putFile(imageUri!!).addOnSuccessListener {
+
+                val uploadTask = if (ContentResolver.SCHEME_ANDROID_RESOURCE == imageUri!!.scheme) {
+                    val resourceId = imageUri!!.lastPathSegment!!.toInt()
+                    val stream = resources.openRawResource(resourceId)
+                    storageRef.putStream(stream)
+                } else {
+                    storageRef.putFile(imageUri!!)
+                }
+
+                uploadTask.addOnSuccessListener {
                         storageRef.downloadUrl.addOnSuccessListener { uri ->
-                            salvarInteracaoNoFirestore(id, titulo, descricao, uri.toString())
+                            salvarInteracaoNoFirestore(id, titulo, uri.toString())
                         }
                     }
                     .addOnFailureListener { e ->
@@ -73,13 +79,46 @@ class NovaInteracao : AppCompatActivity() {
                         binding.btnSalvarInteracao.text = "Salvar"
                     }
             } else {
-                salvarInteracaoNoFirestore(id, titulo, descricao, null)
+                salvarInteracaoNoFirestore(id, titulo, null)
             }
         }
     }
 
+    private fun setupCategorySpinner() {
+        val categorias = listOf("Comidas", "Sentimento", "Cuidados", "Educacional")
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categorias)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerCategoria.adapter = adapter
+    }
 
-    private fun salvarInteracaoNoFirestore(id: String, titulo: String, descricao: String, imageUrl: String?) {
+    private fun setupImageSpinner() {
+        val imageNames = listOf(
+            "Selecione uma imagem", "cha", "cafe", "fome", "banho", "donut", "felicidade", "pizza",
+            "bravo2", "medico", "tristeza", "apatico", "bocejar", "numeros", "banheiro",
+            "chateado", "chorando", "piscando", "remedios", "geografia", "tranquilidade",
+            "hamburguer", "calculadora", "refrigerante", "papel_higienico"
+        )
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, imageNames)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerImagem.adapter = adapter
+
+        binding.spinnerImagem.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                if (position > 0) {
+                    val resourceName = imageNames[position]
+                    val resourceId = resources.getIdentifier(resourceName, "drawable", packageName)
+                    if (resourceId != 0) {
+                        binding.imgInteracao.setImageResource(resourceId)
+                        imageUri = Uri.parse("android.resource://$packageName/$resourceId")
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }
+    }
+
+    private fun salvarInteracaoNoFirestore(id: String, titulo: String, imageUrl: String?) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId == null) {
             Toast.makeText(this, "Usuário não autenticado!", Toast.LENGTH_SHORT).show()
@@ -88,11 +127,13 @@ class NovaInteracao : AppCompatActivity() {
             return
         }
 
+        val categoria = binding.spinnerCategoria.selectedItem.toString()
+
         val map = hashMapOf(
             "id" to id,
             "titulo" to titulo,
-            "descricao" to descricao,
-            "imagem" to (imageUrl ?: "")
+            "imagem" to (imageUrl ?: ""),
+            "categoria" to categoria
         )
 
         firestore.collection("usuarios")
@@ -121,4 +162,3 @@ class NovaInteracao : AppCompatActivity() {
     }
 
 }
-
