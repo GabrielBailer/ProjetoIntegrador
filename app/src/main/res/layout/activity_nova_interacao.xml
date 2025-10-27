@@ -44,11 +44,11 @@
             android:layout_marginTop="8dp"/>
 
         <EditText
-            android:id="@+id/etNomeInteracao"
+            android:id="@+id/etTituloInteracao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Nome da interação"
+            android:hint="Título da interação"
             android:textColorHint="#5F5F5F" />
 
         <Button

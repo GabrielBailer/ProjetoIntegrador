@@ -32,7 +32,7 @@ class Home : AppCompatActivity() {
 
         adapter = InteracaoAdapter(interacoesList) { position ->
             val interacao = interacoesList[position]
-            val intent = Intent(this, DetalheInteracaoActivity::class.java).apply {
+            val intent = Intent(this, DetalheInteracao::class.java).apply {
                 putExtra("TITULO", interacao.titulo)
                 putExtra("DESCRICAO", interacao.descricao)
                 putExtra("IMAGEM_URL", interacao.imagem)

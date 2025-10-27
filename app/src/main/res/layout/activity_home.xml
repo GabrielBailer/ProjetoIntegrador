@@ -81,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnAdicionar"
-        tools:listitem="@layout/item_interacao" />
+        tools:listitem="@layout/activity_detalhe_interacao" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
