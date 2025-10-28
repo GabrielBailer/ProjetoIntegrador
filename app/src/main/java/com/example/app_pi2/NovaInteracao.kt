@@ -87,11 +87,13 @@ class NovaInteracao : AppCompatActivity() {
 
         val categoria = binding.spinnerCategoria.selectedItem.toString()
 
+        val imagemLimpa = imagemNome?.substringBeforeLast(".")
+
         val map = hashMapOf(
             "id" to id,
             "titulo" to titulo,
             "descricao" to categoria,
-            "imagem" to imagemNome // salva o nome da imagem local
+            "imagem" to imagemLimpa
         )
 
         firestore.collection("usuarios")
