@@ -32,13 +32,10 @@ class Home : AppCompatActivity() {
 
         adapter = InteracaoAdapter(interacoesList) { position ->
             val interacao = interacoesList[position]
-            val intent = Intent(this, DetalheInteracaoActivity::class.java).apply {
-                putExtra("TITULO", interacao.titulo)
-                putExtra("DESCRICAO", interacao.descricao)
-                putExtra("IMAGEM_URL", interacao.imagem)
-            }
-            startActivity(intent)
+            val dialog = InteracaoDialogFragment.newInstance(interacao.titulo, interacao.imagem)
+            dialog.show(supportFragmentManager, "InteracaoDialog")
         }
+
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
 

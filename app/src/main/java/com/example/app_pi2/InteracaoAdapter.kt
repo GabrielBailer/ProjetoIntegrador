@@ -29,7 +29,6 @@ class InteracaoAdapter(
     override fun onBindViewHolder(holder: InteracaoViewHolder, position: Int) {
         val interacao = interacoes[position]
         holder.binding.tvTitulo.text = interacao.titulo
-        holder.binding.tvDescricao.text = interacao.descricao
 
         // Carregar imagem local ou do Firebase
         val imagem = interacao.imagem
