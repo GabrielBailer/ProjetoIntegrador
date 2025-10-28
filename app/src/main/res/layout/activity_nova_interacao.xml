@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -29,7 +28,9 @@
             android:id="@+id/spinnerImagem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:minHeight="48dp"
+            android:paddingVertical="8dp"
+            android:layout_marginTop="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,12 +42,16 @@
             android:id="@+id/spinnerCategoria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:minHeight="48dp"
+            android:paddingVertical="8dp"
+            android:layout_marginTop="8dp" />
 
         <EditText
             android:id="@+id/etTituloInteracao"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
             android:layout_marginTop="16dp"
             android:hint="Título da interação"
             android:textColorHint="#5F5F5F" />
@@ -56,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Salvar"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp" />
 
     </LinearLayout>
 </ScrollView>
