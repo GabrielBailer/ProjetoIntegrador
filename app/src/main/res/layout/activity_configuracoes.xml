@@ -9,10 +9,25 @@
 
 
     <ImageButton
+        android:id="@+id/btnLogout"
+        android:layout_width="129dp"
+        android:layout_height="131dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_circular_background"
+        android:contentDescription="Fechar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.015"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.492"
+        app:srcCompat="@drawable/bt_voltar" />
+
+    <ImageButton
         android:id="@+id/btnInteracao"
         android:layout_width="125dp"
         android:layout_height="125dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="128dp"
         android:background="@drawable/button_circular_background"
         android:contentDescription="Adicionar"
@@ -34,19 +49,22 @@
         android:scaleType="centerInside"
         android:src="@drawable/ic_config"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/btnInteracao"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-
     <ImageView
         android:id="@+id/ivLogo2"
-        android:layout_width="130dp"
-        android:layout_height="84dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="374dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="36dp"
         android:contentDescription="@string/logo_content_description"
+        android:scaleType="centerCrop"
         android:src="@drawable/logo_fc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

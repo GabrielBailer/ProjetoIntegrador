@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app_pi2.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,10 +18,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val auth = FirebaseAuth.getInstance()
+        val usuarioAtual = auth.currentUser
+
         Handler(Looper.getMainLooper()).postDelayed({
 
-            val intent = Intent(this@MainActivity, TelaLogin::class.java)
-            startActivity(intent)
+            if (usuarioAtual != null) {
+                val intent = Intent(this@MainActivity, Home::class.java)
+                startActivity(intent)
+                finish()
+            }else{
+                val intent = Intent(this@MainActivity, TelaLogin::class.java)
+                startActivity(intent)
+            }
             finish()
         }, SPLASH_TIME_OUT)
     }

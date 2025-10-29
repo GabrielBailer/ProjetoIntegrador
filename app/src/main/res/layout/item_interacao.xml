@@ -31,13 +31,6 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvDescricao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Categoria ou Descrição"
-            android:textColor="@android:color/white"
-            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>

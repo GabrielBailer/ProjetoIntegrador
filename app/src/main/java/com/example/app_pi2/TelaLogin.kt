@@ -33,6 +33,8 @@ class TelaLogin : AppCompatActivity() {
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         startActivity(Intent(this, Home::class.java))
+                        finish(
+                        )
                     } else {
                         Toast.makeText(this, "Usuário ou senha inválidos", Toast.LENGTH_SHORT).show()
                     }

@@ -1,0 +1,36 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#C8C2C2"
+    android:padding="20dp">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerImagens"
+        android:layout_width="299dp"
+        android:layout_height="261dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btnConfirmarImagem"
+        android:layout_width="259dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="6dp"
+        android:backgroundTint="@color/cor_botao_primario"
+        android:text="Confirmar Imagem"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerImagens"
+        app:layout_constraintVertical_bias="1.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

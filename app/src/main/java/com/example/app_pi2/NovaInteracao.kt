@@ -6,16 +6,21 @@ import android.text.TextWatcher
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.app_pi2.databinding.ActivityNovaInteracaoBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.util.*
 
-class NovaInteracao : AppCompatActivity() {
+class NovaInteracao : AppCompatActivity(), SelecionarImagemFragment.OnImagemSelecionadaListener {
 
     private lateinit var binding: ActivityNovaInteracaoBinding
     private lateinit var firestore: FirebaseFirestore
     private lateinit var dbLocal: AppDatabase
+    private var nomeImagemSelecionada: String? = null
+
 
     private var nomeImagem: String? = null // Nome da imagem que será igual ao título digitado
 
@@ -27,8 +32,8 @@ class NovaInteracao : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         dbLocal = AppDatabase.getInstance(applicationContext)
 
-        setupCategorySpinner()
-        setupTituloListener()
+        categorias()
+        tituloListener()
 
         binding.btnSalvarInteracao.setOnClickListener {
             val titulo = binding.etTituloInteracao.text.toString().trim()
@@ -39,44 +44,63 @@ class NovaInteracao : AppCompatActivity() {
             }
 
             val id = UUID.randomUUID().toString()
-            salvarInteracaoNoFirestore(id, titulo, nomeImagem ?: titulo)
+            val imagemParaSalvar = nomeImagemSelecionada ?: "imagem_padrao"
+            salvarInteracaoNoFirestore(id, titulo, imagemParaSalvar)
         }
+
+        binding.imgInteracao.setOnClickListener {
+            val fragment = SelecionarImagemFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container_view, fragment) // ou container da sua Activity
+                .addToBackStack(null)
+                .commit()
+        }
+
+        binding.imgInteracao.setOnClickListener {
+            val fragment = SelecionarImagemFragment()
+            fragment.show(supportFragmentManager, "selecionar_imagem")
+        }
+
+
     }
 
-    private fun setupCategorySpinner() {
+    private fun categorias() {
         val categorias = listOf("Comidas", "Sentimento", "Cuidados", "Educacional")
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categorias)
+        val adapter = object : ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categorias) {
+            override fun getView(position: Int, convertView: android.view.View?, parent: android.view.ViewGroup): android.view.View {
+                val view = super.getView(position, convertView, parent)
+                (view as android.widget.TextView).setTextColor(android.graphics.Color.BLACK)
+                return view
+            }
+
+        }
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerCategoria.adapter = adapter
     }
 
-    /**
-     * Monitora o campo de título e tenta automaticamente encontrar uma imagem drawable
-     * com o mesmo nome do texto digitado.
-     */
-    private fun setupTituloListener() {
+    private fun tituloListener() {
         binding.etTituloInteracao.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable?) {}
 
             override fun onTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-                val tituloDigitado = text.toString().trim().lowercase(Locale.getDefault())
-                if (tituloDigitado.isNotEmpty()) {
-                    val resId = resources.getIdentifier(tituloDigitado, "drawable", packageName)
+                // Não tentamos mais adivinhar a imagem pelo título
+                // Apenas mantemos a imagem atual (a que foi escolhida no fragment)
+                if (nomeImagemSelecionada != null) {
+                    val resId = resources.getIdentifier(nomeImagemSelecionada, "drawable", packageName)
                     if (resId != 0) {
                         binding.imgInteracao.setImageResource(resId)
-                        nomeImagem = tituloDigitado // define o nome da imagem igual ao título
                     } else {
                         binding.imgInteracao.setImageResource(R.drawable.ic_launcher_foreground)
-                        nomeImagem = null
                     }
                 } else {
                     binding.imgInteracao.setImageResource(R.drawable.ic_launcher_foreground)
-                    nomeImagem = null
                 }
             }
         })
     }
+
 
     private fun salvarInteracaoNoFirestore(id: String, titulo: String, imagemNome: String) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
@@ -96,6 +120,17 @@ class NovaInteracao : AppCompatActivity() {
             "imagem" to imagemLimpa
         )
 
+        val interacao = Interacao(
+            id = id,
+            titulo = titulo,
+            descricao = categoria,
+            imagem = imagemLimpa
+        )
+
+        lifecycleScope.launch(Dispatchers.IO){
+            dbLocal.interacaoDao().insert(interacao)
+        }
+
         firestore.collection("usuarios")
             .document(userId)
             .collection("interacoes")
@@ -108,5 +143,11 @@ class NovaInteracao : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Erro: ${e.message}", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    override fun onImagemSelecionada(nomeImagem: String) {
+        nomeImagemSelecionada = nomeImagem
+        val resId = resources.getIdentifier(nomeImagem, "drawable", packageName)
+        binding.imgInteracao.setImageResource(resId)
     }
 }
