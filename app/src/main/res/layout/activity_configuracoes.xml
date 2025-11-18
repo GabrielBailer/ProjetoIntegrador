@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:padding="20dp">
+
+    <ImageButton
+        android:id="@+id/btnLogout"
+        android:layout_width="129dp"
+        android:layout_height="131dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_circular_background"
+        android:contentDescription="Fechar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.015"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.492"
+        app:srcCompat="@drawable/bt_voltar" />
+
+    <ImageButton
+        android:id="@+id/btnInteracao"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="128dp"
+        android:background="@drawable/button_circular_background"
+        android:contentDescription="Adicionar"
+        android:padding="18dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_interacao"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnUsuario"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="128dp"
+        android:background="@drawable/button_circular_background"
+        android:contentDescription="Adicionar"
+        android:padding="12dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_config"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/btnInteracao"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivLogo2"
+        android:layout_width="374dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="36dp"
+        android:contentDescription="@string/logo_content_description"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo_fc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

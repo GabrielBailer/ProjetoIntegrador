@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgInteracao"
+            android:layout_width="143dp"
+            android:layout_height="139dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/alm_cafe_1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Selecione uma cor:"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/rgCores"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/corVermelho"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/cor_vermelho"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/corLaranja"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/cor_laranja"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/corAmarelo"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/cor_amarelo"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/corVerde"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/cor_verde"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/corAzul"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/cor_azul"
+                    android:button="@null" />
+
+                <RadioButton
+                    android:id="@+id/corRoxo"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/cor_roxo"
+                    android:button="@null" />
+
+            </RadioGroup>
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/spinnerCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#000000"
+            android:minHeight="48dp"
+            android:paddingVertical="8dp"
+            android:textColorHint="@color/black"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/etTituloInteracao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            android:hint="Título da interação"
+            android:textColor="#282828"
+            android:textColorHint="#5F5F5F"
+            android:backgroundTint="@color/black"/>
+
+        <Button
+            android:id="@+id/btnSalvarInteracao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/cor_botao_primario"
+            android:text="Salvar"
+            android:textColor="@color/white" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+
+</ScrollView>
