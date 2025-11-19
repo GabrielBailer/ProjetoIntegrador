@@ -15,4 +15,8 @@ interface InteracaoDao {
 
     @Query("DELETE FROM interacoes")
     suspend fun clearAll()
+
+    @Query("SELECT COUNT(*) FROM interacoes")
+    suspend fun countInteracoes(): Int
+
 }

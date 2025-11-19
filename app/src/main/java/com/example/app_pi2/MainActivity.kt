@@ -7,6 +7,8 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app_pi2.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.appcheck.FirebaseAppCheck
+import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,20 +20,30 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // 1️⃣ Inicializa App Check primeiro
+        val firebaseAppCheck = FirebaseAppCheck.getInstance()
+        firebaseAppCheck.installAppCheckProviderFactory(
+            PlayIntegrityAppCheckProviderFactory.getInstance()
+        )
+
+        // 2️⃣ Espera o splash e então verifica usuário
+        Handler(Looper.getMainLooper()).postDelayed({
+            checkCurrentUser()
+        }, SPLASH_TIME_OUT)
+    }
+
+    private fun checkCurrentUser() {
         val auth = FirebaseAuth.getInstance()
         val usuarioAtual = auth.currentUser
 
-        Handler(Looper.getMainLooper()).postDelayed({
+        val nextActivity = if (usuarioAtual != null) {
+            Home::class.java
+        } else {
+            TelaLogin::class.java
+        }
 
-            if (usuarioAtual != null) {
-                val intent = Intent(this@MainActivity, Home::class.java)
-                startActivity(intent)
-                finish()
-            }else{
-                val intent = Intent(this@MainActivity, TelaLogin::class.java)
-                startActivity(intent)
-            }
-            finish()
-        }, SPLASH_TIME_OUT)
+        startActivity(Intent(this@MainActivity, nextActivity))
+        finish()
     }
 }
+

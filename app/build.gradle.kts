@@ -72,15 +72,13 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-appcheck")
+    implementation("com.google.firebase:firebase-appcheck-playintegrity")
 
     // Room -> MIGRADO para KSP (mais rápido).
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     kapt(libs.room.compiler)
-
-    // Navigation -> atualizado para 2.9.0 (estável e com correções recentes)
-    implementation("androidx.navigation:navigation-fragment-ktx:2.9.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.9.0")
 
     // JavaMail (mantive, mas atenção: lib antiga)
     implementation("com.sun.mail:android-mail:1.6.7")

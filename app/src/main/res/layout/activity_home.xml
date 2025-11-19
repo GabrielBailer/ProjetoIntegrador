@@ -8,6 +8,7 @@
     android:background="@drawable/bg_gradient"
     android:padding="20dp">
 
+    <!-- LOGO -->
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="268dp"
@@ -18,8 +19,9 @@
         android:scaleType="centerCrop"
         android:src="@drawable/logo_fc"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-60dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- BOTÃO CONFIGURAÇÕES -->
     <ImageButton
         android:id="@+id/btnConfiguracoes"
         android:layout_width="56dp"
@@ -27,26 +29,28 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="4dp"
         android:background="@drawable/button_circular_background"
-        android:contentDescription="Configurações"
         android:padding="12dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_settings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:contentDescription="Configurações"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- BOTÃO ADICIONAR -->
     <ImageButton
         android:id="@+id/btnAdicionar"
         android:layout_width="76dp"
         android:layout_height="76dp"
         android:layout_marginTop="28dp"
         android:background="@drawable/button_circular_background"
-        android:contentDescription="Adicionar"
         android:padding="12dp"
         android:scaleType="centerInside"
         android:src="@drawable/ic_add"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivLogo" />
+        android:contentDescription="Adicionar"
+        app:layout_constraintTop_toBottomOf="@id/ivLogo"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <!-- TEXTO "CRIAR INTERAÇÕES" -->
     <TextView
         android:id="@+id/text_criar_interacoes"
         android:layout_width="0dp"
@@ -55,33 +59,33 @@
         android:text="Criar Interações"
         android:textColor="@color/cor_texto_principal"
         android:textSize="18sp"
+        app:layout_constraintTop_toTopOf="@id/btnAdicionar"
         app:layout_constraintBottom_toBottomOf="@id/btnAdicionar"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnAdicionar"
-        app:layout_constraintTop_toTopOf="@id/btnAdicionar" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- LINHA DE CATEGORIAS -->
     <LinearLayout
         android:id="@+id/layoutCategorias"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
+        android:layout_marginTop="16dp"
         app:layout_constraintTop_toBottomOf="@id/btnAdicionar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
+    <!-- LISTA -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutCategorias"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_interacao" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
