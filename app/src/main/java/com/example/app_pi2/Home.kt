@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.room.Room
 import com.example.app_pi2.databinding.ActivityHomeBinding
 import com.example.app_pi2.ui.seguranca.CriarSenhaRespFragment
@@ -45,8 +45,10 @@ class Home : AppCompatActivity() {
             dialog.show(supportFragmentManager, "InteracaoDialog")
         }
 
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        val spanCount = if (resources.getBoolean(R.bool.isTablet)) 3 else 2
+        binding.recyclerView.layoutManager = GridLayoutManager(this, spanCount)
         binding.recyclerView.adapter = adapter
+
 
         // 🔄 Sincronização Firestore → Room → RecyclerView
         if (userId != null) {
