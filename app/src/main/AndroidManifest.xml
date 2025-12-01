@@ -30,8 +30,7 @@
 
                 <data
                     android:scheme="https"
-                    android:host="app-pi2.firebaseapp.com"
-                    android:pathPrefix="/verificar" />
+                    android:host="app-pi2.web.app" />
             </intent-filter>
         </activity>
 

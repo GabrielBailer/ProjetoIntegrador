@@ -74,10 +74,12 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-appcheck")
     implementation("com.google.firebase:firebase-appcheck-playintegrity")
+    implementation("com.google.firebase:firebase-functions-ktx:20.2.0")
 
     // Room -> MIGRADO para KSP (mais rápido).
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
+    implementation(libs.firebase.appcheck.debug)
     kapt(libs.room.compiler)
 
     // JavaMail (mantive, mas atenção: lib antiga)

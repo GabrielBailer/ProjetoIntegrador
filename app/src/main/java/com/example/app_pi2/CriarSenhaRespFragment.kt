@@ -1,5 +1,6 @@
 package com.example.app_pi2.ui.seguranca
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +14,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.app_pi2.NovaInteracao
 import com.example.app_pi2.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.functions.FirebaseFunctions
 
 class CriarSenhaRespFragment : DialogFragment() {
 
@@ -21,8 +22,7 @@ class CriarSenhaRespFragment : DialogFragment() {
     private lateinit var editConfirmarSenha: EditText
     private lateinit var btnCadastrar: Button
 
-    private val auth = FirebaseAuth.getInstance()
-    private val firestore = FirebaseFirestore.getInstance()
+    private val functions by lazy { FirebaseFunctions.getInstance() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,46 +48,42 @@ class CriarSenhaRespFragment : DialogFragment() {
                 senha.length < 6 ->
                     mostrarMensagem("A senha deve ter no mínimo 6 caracteres")
 
-                else -> salvarSenha(senha)
+                else -> salvarSenhaNoServidor(senha)
             }
         }
 
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-    }
-
-    private fun salvarSenha(senha: String) {
-        val userId = auth.currentUser?.uid ?: run {
-            mostrarMensagem("Usuário não autenticado")
+    private fun salvarSenhaNoServidor(senha: String) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        if (uid.isNullOrEmpty()) {
+            mostrarMensagem("Erro interno: UID do usuário não encontrado.")
             return
         }
 
-        val dados = hashMapOf(
-            "senhaResponsavel" to senha
+        val data = hashMapOf(
+            "uid" to uid,
+            "password" to senha
         )
 
-        firestore.collection("usuarios")
-            .document(userId)
-            .set(dados, com.google.firebase.firestore.SetOptions.merge())
+        functions
+            .getHttpsCallable("saveResponsiblePassword")
+            .call(data)
             .addOnSuccessListener {
                 mostrarMensagem("Senha cadastrada com sucesso!")
                 abrirNovaInteracao()
                 dismiss()
             }
             .addOnFailureListener {
-                mostrarMensagem("Erro ao salvar a senha: ${it.message}")
+                mostrarMensagem("Erro ao salvar senha: ${it.localizedMessage}")
             }
     }
 
     private fun abrirNovaInteracao() {
-        // Abre a Activity principal do app após cadastro da senha
         val intent = Intent(requireContext(), NovaInteracao::class.java)
         startActivity(intent)
-        requireActivity().finish() // Fecha Home para evitar voltar para a tela inicial
+        requireActivity().finish()
     }
 
     private fun mostrarMensagem(msg: String) {

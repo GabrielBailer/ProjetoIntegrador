@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.app_pi2.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.appcheck.FirebaseAppCheck
-import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
+import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,33 +17,46 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // 1️⃣ Inicializa App Check primeiro
+        // AppCheck debug
         val firebaseAppCheck = FirebaseAppCheck.getInstance()
         firebaseAppCheck.installAppCheckProviderFactory(
-            PlayIntegrityAppCheckProviderFactory.getInstance()
+            DebugAppCheckProviderFactory.getInstance()
         )
 
-        // 2️⃣ Espera o splash e então verifica usuário
+        // Deep link
+        val deepLink = intent?.data
+        val oobCode = deepLink?.getQueryParameter("oobCode")
+        val mode = deepLink?.getQueryParameter("mode")
+
+        val firebaseLink = intent?.dataString
+
         Handler(Looper.getMainLooper()).postDelayed({
-            checkCurrentUser()
+            checkCurrentUser(oobCode, mode, firebaseLink)
         }, SPLASH_TIME_OUT)
     }
 
-    private fun checkCurrentUser() {
+    private fun checkCurrentUser(oobCode: String?, mode: String?, firebaseLink: String?) {
         val auth = FirebaseAuth.getInstance()
         val usuarioAtual = auth.currentUser
 
-        val nextActivity = if (usuarioAtual != null) {
-            Home::class.java
+        val nextIntent = if (usuarioAtual != null) {
+            Intent(this, Home::class.java)
         } else {
-            TelaLogin::class.java
+            Intent(this, TelaLogin::class.java)
         }
 
-        startActivity(Intent(this@MainActivity, nextActivity))
+        // Passar dados do deep link para a próxima tela
+        if (!oobCode.isNullOrEmpty()) {
+            nextIntent.putExtra("oobCode", oobCode)
+            nextIntent.putExtra("mode", mode)
+            nextIntent.putExtra("link", firebaseLink)
+        }
+
+        startActivity(nextIntent)
         finish()
     }
 }
-

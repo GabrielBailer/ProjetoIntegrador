@@ -10,14 +10,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
-import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import androidx.core.content.edit
+import kotlin.random.Random
 
 class CadastroEmailRespFragment : DialogFragment() {
 
     private lateinit var editEmailResponsavel: EditText
     private lateinit var btnEnviar: Button
     private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,13 +39,13 @@ class CadastroEmailRespFragment : DialogFragment() {
                 emailResponsavel.isEmpty() ->
                     mostrarMensagem("Digite o e-mail do responsável")
 
-                emailResponsavel == emailUser ->
-                    mostrarMensagem("Use um e-mail diferente do da conta")
-
                 !android.util.Patterns.EMAIL_ADDRESS.matcher(emailResponsavel).matches() ->
                     mostrarMensagem("Digite um e-mail válido")
 
-                else -> enviarLinkEmail(emailResponsavel)
+                emailResponsavel == emailUser ->
+                    mostrarMensagem("Use um e-mail diferente do da conta do usuário")
+
+                else -> enviarCodigoResponsavel(emailResponsavel)
             }
         }
 
@@ -54,35 +57,45 @@ class CadastroEmailRespFragment : DialogFragment() {
         dialog?.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
     }
 
-    private fun enviarLinkEmail(emailDestino: String) {
-        // Salva email em SharedPreferences para uso futuro
-        requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-            .edit()
-            .putString("responsavel_email", emailDestino)
-            .apply()
+    private fun enviarCodigoResponsavel(emailDestino: String) {
 
-        val actionCodeSettings = ActionCodeSettings.newBuilder()
-            .setUrl("https://app-pi2.firebaseapp.com/verificar") // link de redirecionamento
-            .setHandleCodeInApp(true)
-            .setAndroidPackageName(
-                requireContext().packageName,
-                true, // instalar app se não tiver
-                null
+        // ✔ Gerar código de 6 dígitos
+        val codigo = Random.nextInt(100000, 999999).toString()
+
+        // ✔ Salvar no SharedPreferences para ser verificado no próximo fragment
+        requireContext().getSharedPreferences("app_prefs", Context.MODE_PRIVATE).edit {
+            putString("responsavel_email", emailDestino)
+            putString("responsavel_codigo", codigo)
+        }
+
+        // -------------------------
+        // ✔ Criar documento na collection "mail"
+        // -------------------------
+        val mailData = hashMapOf(
+            "to" to listOf(emailDestino),
+            "message" to hashMapOf(
+                "subject" to "Código de verificação",
+                "text" to "Seu código é: $codigo"
             )
-            .build()
+        )
 
-        auth.sendSignInLinkToEmail(emailDestino, actionCodeSettings)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    mostrarMensagem("Link enviado para $emailDestino! Abra o app pelo link recebido.")
-                    dismiss()
-                } else {
-                    mostrarMensagem("Erro ao enviar link: ${task.exception?.message}")
-                }
+        db.collection("mail")
+            .add(mailData)
+            .addOnSuccessListener {
+                mostrarMensagem("Código enviado para: $emailDestino")
+
+                dismiss()
+
+                val dialogValidar = ValidarCodigoRespFragment()
+                dialogValidar.show(parentFragmentManager, "ValidarCodigoRespFragment")
+            }
+            .addOnFailureListener { e ->
+                val erro = e.localizedMessage ?: "Erro desconhecido"
+                mostrarMensagem("Falha ao enviar e-mail: $erro")
             }
     }
 
     private fun mostrarMensagem(msg: String) {
-        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_LONG).show()
     }
 }

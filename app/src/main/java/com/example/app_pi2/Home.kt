@@ -49,7 +49,6 @@ class Home : AppCompatActivity() {
         binding.recyclerView.layoutManager = GridLayoutManager(this, spanCount)
         binding.recyclerView.adapter = adapter
 
-
         // 🔄 Sincronização Firestore → Room → RecyclerView
         if (userId != null) {
             firestore.collection("usuarios")
@@ -82,11 +81,9 @@ class Home : AppCompatActivity() {
 
                 withContext(Dispatchers.Main) {
                     if (quantidade == 0) {
-                        // Nenhuma interação → iniciar fluxo do responsável
                         val cadastroEmailDialog = CadastroEmailRespFragment()
                         cadastroEmailDialog.show(supportFragmentManager, "CadastroEmailResp")
                     } else {
-                        // Já existem interações → pedir senha cadastrada
                         val solicitarSenhaDialog = SolicitarSenhaRespFragment()
                         solicitarSenhaDialog.show(supportFragmentManager, "SolicitarSenhaResp")
                     }
@@ -98,29 +95,44 @@ class Home : AppCompatActivity() {
         binding.btnConfiguracoes.setOnClickListener {
             startActivity(Intent(this, Configuracoes::class.java))
         }
+
+        // ⬇️ 1️⃣ Tratamento do deep link vindo da MainActivity
+        tratarDeepLink()
     }
 
-    override fun onStart() {
-        super.onStart()
+    private fun tratarDeepLink() {
+        val oobCode = intent.getStringExtra("oobCode")
+        val mode = intent.getStringExtra("mode")
 
-        val emailLink = intent.data?.toString() ?: return
-        val prefs = getSharedPreferences("app_prefs", Context.MODE_PRIVATE)
-        val email = prefs.getString("responsavel_email", null) ?: return
+        if (oobCode.isNullOrEmpty() || mode.isNullOrEmpty()) return
 
-        val auth = FirebaseAuth.getInstance()
+        // 🔥 Evita que o deep link seja processado novamente caso a Home seja recriada
+        intent.removeExtra("oobCode")
+        intent.removeExtra("mode")
 
-        if (auth.isSignInWithEmailLink(emailLink)) {
-            auth.signInWithEmailLink(email, emailLink)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        mostrarMensagem("Link validado! Cadastre a senha do responsável.")
-                        // Abrir CriarSenhaRespFragment direto
-                        val criarSenhaDialog = CriarSenhaRespFragment()
-                        criarSenhaDialog.show(supportFragmentManager, "CriarSenhaResp")
-                    } else {
-                        mostrarMensagem("Erro ao validar link: ${task.exception?.message}")
-                    }
-                }
+        when (mode) {
+
+            "verifyEmail" -> {
+                // email verificado → abrir fragment de solicitar senha
+                val frag = SolicitarSenhaRespFragment()
+                frag.show(supportFragmentManager, "SolicitarSenhaResp")
+            }
+
+            "signIn" -> {
+                // email link para login → criar senha direto
+                val frag = CriarSenhaRespFragment()
+                frag.show(supportFragmentManager, "CriarSenhaResp")
+            }
+
+            "resetPassword" -> {
+                // redefinição de senha → mesma tela de criar senha
+                val frag = CriarSenhaRespFragment()
+                frag.show(supportFragmentManager, "CriarSenhaResp")
+            }
+
+            else -> {
+                mostrarMensagem("Modo desconhecido: $mode")
+            }
         }
     }
 

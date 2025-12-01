@@ -13,15 +13,14 @@ import androidx.fragment.app.DialogFragment
 import com.example.app_pi2.NovaInteracao
 import com.example.app_pi2.R
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.functions.HttpsCallableResult
 
 class SolicitarSenhaRespFragment : DialogFragment() {
 
     private lateinit var editSenha: EditText
     private lateinit var btnConfirmar: Button
-
-    private val auth = FirebaseAuth.getInstance()
-    private val firestore = FirebaseFirestore.getInstance()
+    private val functions = FirebaseFunctions.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,23 +43,28 @@ class SolicitarSenhaRespFragment : DialogFragment() {
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
-    }
-
     private fun validarSenha(senhaDigitada: String) {
-        val userId = auth.currentUser?.uid ?: run {
-            mostrarMensagem("Usuário não autenticado")
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        if (uid.isNullOrEmpty()) {
+            mostrarMensagem("Erro interno: UID do usuário não encontrado.")
             return
         }
 
-        firestore.collection("usuarios")
-            .document(userId)
-            .get()
-            .addOnSuccessListener { doc ->
-                val senhaCadastrada = doc.getString("senhaResponsavel")
-                if (senhaCadastrada == senhaDigitada) {
+        mostrarMensagem("Validando senha...")
+
+        val payload = mapOf(
+            "uid" to uid,
+            "password" to senhaDigitada
+        )
+
+        functions
+            .getHttpsCallable("verifyResponsiblePassword")
+            .call(payload)
+            .addOnSuccessListener { result: HttpsCallableResult ->
+                val data = result.data
+                val ok = (data as? Map<*, *>)?.get("success") as? Boolean ?: false
+
+                if (ok) {
                     mostrarMensagem("Senha correta!")
                     abrirNovaInteracao()
                     dismiss()
@@ -68,14 +72,15 @@ class SolicitarSenhaRespFragment : DialogFragment() {
                     mostrarMensagem("Senha incorreta")
                 }
             }
-            .addOnFailureListener {
-                mostrarMensagem("Erro ao validar senha: ${it.message}")
+            .addOnFailureListener { e ->
+                mostrarMensagem("Erro ao validar senha: ${e.localizedMessage}")
             }
     }
 
     private fun abrirNovaInteracao() {
         val intent = Intent(requireContext(), NovaInteracao::class.java)
         startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun mostrarMensagem(msg: String) {
