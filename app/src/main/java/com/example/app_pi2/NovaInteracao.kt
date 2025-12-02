@@ -1,5 +1,6 @@
 package com.example.app_pi2
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -58,7 +59,7 @@ class NovaInteracao : AppCompatActivity(), SelecionarImagemFragment.OnImagemSele
             }
 
             val id = UUID.randomUUID().toString()
-            val imagemParaSalvar = nomeImagemSelecionada ?: "imagem_padrao"
+            val imagemParaSalvar = nomeImagemSelecionada ?: "alm_cafe_1"
             salvarInteracaoNoFirestore(id, titulo, imagemParaSalvar)
         }
 
@@ -131,8 +132,14 @@ class NovaInteracao : AppCompatActivity(), SelecionarImagemFragment.OnImagemSele
             cor = corSelecionada
         )
 
-        lifecycleScope.launch(Dispatchers.IO){
-            dbLocal.interacaoDao().insert(interacao)
+        runOnUiThread {
+            Toast.makeText(this@NovaInteracao, "Interação salva!", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(this@NovaInteracao, Home::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+
+            finish()
         }
 
         firestore.collection("usuarios")
@@ -142,7 +149,6 @@ class NovaInteracao : AppCompatActivity(), SelecionarImagemFragment.OnImagemSele
             .set(map)
             .addOnSuccessListener {
                 Toast.makeText(this, "Interação salva!", Toast.LENGTH_SHORT).show()
-                finish()
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Erro: ${e.message}", Toast.LENGTH_SHORT).show()

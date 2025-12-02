@@ -19,11 +19,13 @@ class InteracaoDialogFragment : DialogFragment(), TextToSpeech.OnInitListener {
     private lateinit var tts: TextToSpeech
     private var titulo: String? = null
     private var imagem: String? = null
+    private var cor: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         titulo = arguments?.getString("titulo")
         imagem = arguments?.getString("imagem")
+        cor = arguments?.getString("cor")
     }
 
     override fun onCreateView(
@@ -51,6 +53,14 @@ class InteracaoDialogFragment : DialogFragment(), TextToSpeech.OnInitListener {
             }
         }
 
+        cor?.let {
+            try {
+                binding.root.setBackgroundColor(android.graphics.Color.parseColor(it))
+            } catch (e: Exception) {
+                binding.root.setBackgroundColor(android.graphics.Color.parseColor("#C8C2C2"))
+            }
+        }
+
         binding.root.setOnClickListener { dismiss() }
 
         binding.btnVoltar.setOnClickListener { dismiss() }
@@ -73,11 +83,12 @@ class InteracaoDialogFragment : DialogFragment(), TextToSpeech.OnInitListener {
     }
 
     companion object {
-        fun newInstance(titulo: String, imagem: String?): InteracaoDialogFragment {
+        fun newInstance(titulo: String, imagem: String?, cor: String): InteracaoDialogFragment {
             val fragment = InteracaoDialogFragment()
             val args = Bundle().apply {
                 putString("titulo", titulo)
                 putString("imagem", imagem)
+                putString("cor", cor)
             }
             fragment.arguments = args
             return fragment

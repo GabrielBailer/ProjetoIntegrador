@@ -65,17 +65,24 @@ class NovoCadastro : AppCompatActivity() {
                     nomeUsuario = nome,
                     numeroContato = contato,
                     email = email,
-                    senha = ""
+                    senha = senha
                 )
                 db.collection("usuarios").document(uid).set(usuario)
                     .addOnSuccessListener {
                         Toast.makeText(this, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, TelaLogin::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        startActivity(intent)
                     }
                     .addOnFailureListener { e ->
                         Toast.makeText(this, "Erro ao salvar dados: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+
+                auth.signInWithEmailAndPassword(email, senha)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            startActivity(Intent(this, Home::class.java))
+                            finish()
+                        } else {
+                            Toast.makeText(this, "Usuário ou senha inválidos", Toast.LENGTH_SHORT).show()
+                        }
                     }
             } else {
                 val exception = task.exception

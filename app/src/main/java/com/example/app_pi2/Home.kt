@@ -41,7 +41,7 @@ class Home : AppCompatActivity() {
 
         adapter = InteracaoAdapter(interacoesList) { position ->
             val interacao = interacoesList[position]
-            val dialog = InteracaoDialogFragment.newInstance(interacao.titulo, interacao.imagem)
+            val dialog = InteracaoDialogFragment.newInstance(interacao.titulo, interacao.imagem, interacao.cor)
             dialog.show(supportFragmentManager, "InteracaoDialog")
         }
 
@@ -49,7 +49,7 @@ class Home : AppCompatActivity() {
         binding.recyclerView.layoutManager = GridLayoutManager(this, spanCount)
         binding.recyclerView.adapter = adapter
 
-        // 🔄 Sincronização Firestore → Room → RecyclerView
+        // Sincronização Firestore + Room + RecyclerView
         if (userId != null) {
             firestore.collection("usuarios")
                 .document(userId!!)
@@ -74,7 +74,6 @@ class Home : AppCompatActivity() {
                 }
         }
 
-        // ➕ Botão Adicionar Interação
         binding.btnAdicionar.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 val quantidade = dbLocal.interacaoDao().countInteracoes()
@@ -91,52 +90,11 @@ class Home : AppCompatActivity() {
             }
         }
 
-        // ⚙️ Botão Configurações
+
         binding.btnConfiguracoes.setOnClickListener {
             startActivity(Intent(this, Configuracoes::class.java))
         }
 
-        // ⬇️ 1️⃣ Tratamento do deep link vindo da MainActivity
-        tratarDeepLink()
     }
 
-    private fun tratarDeepLink() {
-        val oobCode = intent.getStringExtra("oobCode")
-        val mode = intent.getStringExtra("mode")
-
-        if (oobCode.isNullOrEmpty() || mode.isNullOrEmpty()) return
-
-        // 🔥 Evita que o deep link seja processado novamente caso a Home seja recriada
-        intent.removeExtra("oobCode")
-        intent.removeExtra("mode")
-
-        when (mode) {
-
-            "verifyEmail" -> {
-                // email verificado → abrir fragment de solicitar senha
-                val frag = SolicitarSenhaRespFragment()
-                frag.show(supportFragmentManager, "SolicitarSenhaResp")
-            }
-
-            "signIn" -> {
-                // email link para login → criar senha direto
-                val frag = CriarSenhaRespFragment()
-                frag.show(supportFragmentManager, "CriarSenhaResp")
-            }
-
-            "resetPassword" -> {
-                // redefinição de senha → mesma tela de criar senha
-                val frag = CriarSenhaRespFragment()
-                frag.show(supportFragmentManager, "CriarSenhaResp")
-            }
-
-            else -> {
-                mostrarMensagem("Modo desconhecido: $mode")
-            }
-        }
-    }
-
-    private fun mostrarMensagem(msg: String) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-    }
 }
