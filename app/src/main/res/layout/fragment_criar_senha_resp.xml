@@ -5,35 +5,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#C8C2C2"
+    android:background="@color/white"
     android:padding="20dp">
-
-    <TextView
-        android:id="@+id/tv_titulo_senha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cadastrar senha interna"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/edit_nova_senha"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
+        android:minWidth="700dp"
         android:layout_height="wrap_content"
-        android:hint="Nova senha"
+        android:hint="Senha"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
         android:inputType="textPassword"
-        android:layout_marginTop="32dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_titulo_senha"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edit_confirmar_senha"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
+        android:minWidth="700dp"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
         android:hint="Confirmar senha"
         android:inputType="textPassword"
         app:layout_constraintTop_toBottomOf="@id/edit_nova_senha"
@@ -43,12 +37,16 @@
 
     <Button
         android:id="@+id/btn_salvar_senha"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
+        android:minWidth="700dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="Salvar senha"
-        app:layout_constraintTop_toBottomOf="@id/edit_confirmar_senha"
-        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/cor_botao_primario"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_confirmar_senha" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,39 +4,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#C8C2C2"
+    android:background="#FFFFFF"
     android:padding="24dp">
-
-    <TextView
-        android:id="@+id/tv_titulo_solicitar_senha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Digite a senha do responsável"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="24dp" />
 
     <EditText
         android:id="@+id/edit_senha_interna"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
+        android:minWidth="500dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:hint="Senha"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
         android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@id/tv_titulo_solicitar_senha"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_confirmar_senha"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="24dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_confirmar_senha"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
+        android:minWidth="500dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/cor_botao_primario"
+        android:layout_marginBottom="24dp"
         android:text="Confirmar"
-        app:layout_constraintTop_toBottomOf="@id/edit_senha_interna"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/edit_senha_interna" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
