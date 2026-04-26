@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootHome"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:fitsSystemWindows="true"
+    android:paddingStart="14dp"
+    android:paddingTop="14dp"
+    android:paddingEnd="14dp"
+    android:paddingBottom="12dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/boxFrase"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:cardBackgroundColor="#E9E9EE"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tvFraseMontada"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Toque nos cards para montar uma frase..."
+            android:textColor="#7A7A86"
+            android:textSize="16sp" />
+    </androidx.cardview.widget.CardView>
+
+
+    <ImageView
+        android:id="@+id/ivLogo2"
+        android:layout_width="288dp"
+        android:layout_height="129dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/logo_content_description"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.551"
+        app:srcCompat="@drawable/logo_fc" />
+
+    <ImageButton
+        android:id="@+id/btnPerfil"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Perfil"
+        android:padding="4dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_perfil"
+        app:layout_constraintBottom_toTopOf="@+id/dividerTop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.402" />
+
+    <ImageButton
+        android:id="@+id/btnConfiguracoes"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="Configurações"
+        android:padding="4dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_config"
+        app:layout_constraintBottom_toTopOf="@+id/dividerTop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.402" />
+
+
+    <View
+        android:id="@+id/dividerTop"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="#D8D8D8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.14" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/dividerBotton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dividerTop"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/item_interacao" />
+
+    <View
+        android:id="@+id/dividerBotton"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginBottom="12dp"
+        android:background="#D8D8D8"
+        app:layout_constraintBottom_toTopOf="@+id/searchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_busca"
+        android:iconifiedByDefault="false"
+        android:queryHint="Buscar interação..."
+        app:layout_constraintBottom_toTopOf="@+id/btnFalar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.979" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFalar"
+        android:layout_width="217dp"
+        android:layout_height="66dp"
+        android:layout_weight="1"
+        android:text="Falar"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:backgroundTint="#A9A9B2"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/ic_falar"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnEditar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.973" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeletar"
+        android:layout_width="64dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="4dp"
+        android:contentDescription="Editar"
+        app:backgroundTint="#F2F2F2"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/ic_apagar"
+        app:iconTint="#7A7A7A"
+        app:layout_constraintBottom_toBottomOf="@+id/btnEditar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnEditar"
+        app:layout_constraintTop_toTopOf="@+id/btnEditar"
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="#E0E0E0"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEditar"
+        android:layout_width="64dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="4dp"
+        android:contentDescription="Editar"
+        app:backgroundTint="#F2F2F2"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/ic_editar"
+        app:iconTint="#7A7A7A"
+        app:layout_constraintBottom_toBottomOf="@+id/btnFalar"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeletar"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnFalar"
+        app:layout_constraintTop_toTopOf="@+id/btnFalar"
+        app:layout_constraintVertical_bias="0.0"
+        app:strokeColor="#E0E0E0"
+        app:strokeWidth="1dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
