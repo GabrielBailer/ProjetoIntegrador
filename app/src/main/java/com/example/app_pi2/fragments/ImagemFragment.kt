@@ -30,7 +30,7 @@ class SelecionarImagemFragment : DialogFragment() {
             "int_baloes",
             "int_batatas_fritas",
             "int_bebida",
-            "int_beijo_coracao",
+            "int_coracao",
             "int_biscoito",
             "int_bolo_aniversario",
             "int_bravo",

@@ -19,7 +19,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="24dp"
-            android:src="@drawable/int_feliz" />
+            android:src="@drawable/int_black_feliz" />
 
         <!-- TEXTO -->
         <TextView
