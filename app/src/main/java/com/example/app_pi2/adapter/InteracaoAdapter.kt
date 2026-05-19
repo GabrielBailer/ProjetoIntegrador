@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.app_pi2.R
@@ -11,34 +12,47 @@ import com.example.app_pi2.data.model.Interacao
 import com.example.app_pi2.databinding.ItemInteracaoBinding
 
 class InteracaoAdapter(
-    private val interacoes: MutableList<Interacao>,
-    private val onItemClick: (position: Int) -> Unit
-) : RecyclerView.Adapter<InteracaoAdapter.InteracaoViewHolder>() {
+    private val onItemClick: (Interacao) -> Unit
+) : ListAdapter<Interacao, InteracaoAdapter.InteracaoViewHolder>(DiffCallback()) {
 
-    inner class InteracaoViewHolder(val binding: ItemInteracaoBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.root.setOnClickListener {
-                val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    onItemClick(position)
-                }
-            }
-        }
+    init {
+        setHasStableIds(true)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InteracaoViewHolder {
+    class InteracaoViewHolder(
+        val binding: ItemInteracaoBinding
+    ) : RecyclerView.ViewHolder(binding.root)
+
+    override fun getItemId(position: Int): Long {
+        return getItem(position).id.hashCode().toLong()
+    }
+
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): InteracaoViewHolder {
+
         val binding = ItemInteracaoBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
         )
+
         return InteracaoViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: InteracaoViewHolder, position: Int) {
-        val interacao = interacoes[position]
+    override fun onBindViewHolder(
+        holder: InteracaoViewHolder,
+        position: Int
+    ) {
+
+        val interacao = getItem(position)
+
         holder.binding.tvTitulo.text = interacao.titulo
+
+        holder.binding.root.setOnClickListener {
+            onItemClick(interacao)
+        }
 
         val imagem = interacao.imagem
         if (!imagem.isNullOrEmpty()) {
@@ -75,5 +89,4 @@ class InteracaoAdapter(
         }
     }
 
-    override fun getItemCount() = interacoes.size
 }

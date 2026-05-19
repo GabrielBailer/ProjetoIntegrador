@@ -28,4 +28,7 @@ interface InteracaoDao {
 
     @Delete
     fun delete(interacao: Interacao)
+
+    @Upsert
+    suspend fun upsertAll(lista: List<Interacao>)
 }

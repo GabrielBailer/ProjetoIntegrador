@@ -79,6 +79,7 @@ dependencies {
 
     implementation(libs.room.runtime)
     implementation(libs.firebase.appcheck.debug)
+    implementation(libs.androidx.leanback)
     kapt(libs.room.compiler)
 
     implementation("org.osmdroid:osmdroid-android:6.1.10")
