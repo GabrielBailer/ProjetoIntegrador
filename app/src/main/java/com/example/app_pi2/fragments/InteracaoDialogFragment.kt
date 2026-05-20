@@ -80,7 +80,6 @@ class InteracaoDialogFragment : DialogFragment() {
             deletarInteracao()
         }
 
-        // Ouvinte para receber a imagem do SelecionarImagemFragment
         childFragmentManager.setFragmentResultListener(
             "imagem_request",
             this

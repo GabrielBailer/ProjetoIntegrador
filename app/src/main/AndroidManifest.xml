@@ -38,9 +38,7 @@
         <activity android:name=".ui.NovoCadastro" />
         <activity android:name=".ui.RecuperarSenha" android:exported="false" />
         <activity android:name=".ui.NovaInteracao" />
-        <activity android:name=".activity.PerfilActivity" />
         <activity android:name=".ui.Home" />
-
 
     </application>
 

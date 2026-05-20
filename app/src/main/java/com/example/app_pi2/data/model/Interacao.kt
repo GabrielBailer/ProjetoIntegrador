@@ -8,11 +8,10 @@ import com.example.app_pi2.utils.InteracaoCores
 data class Interacao(
     @PrimaryKey val id: String = "",
     val titulo: String = "",
-    val descricao: String = "",
     val imagem: String? = null,
     val cor: String = "",
 ) {
-    constructor() : this("", "", "", null, "")
+    constructor() : this("", "", null, "")
 
     val corInt: Int
         get() = InteracaoCores.toColorInt(cor)

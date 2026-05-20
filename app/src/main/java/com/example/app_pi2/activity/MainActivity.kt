@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
-    private val SPLASH_TIME_OUT: Long = 2000
+    private val splashTimeout = 3000L
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         lifecycleScope.launch {
-            delay(SPLASH_TIME_OUT)
+            delay(splashTimeout)
             checkCurrentUser()
         }
     }

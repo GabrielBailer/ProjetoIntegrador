@@ -112,7 +112,12 @@ class Home : AppCompatActivity() {
 
             if (status == TextToSpeech.SUCCESS) {
 
-                val resultado = tts.setLanguage(Locale("pt", "BR"))
+                val locale = Locale.Builder()
+                    .setLanguage("pt")
+                    .setRegion("BR")
+                    .build()
+
+                val resultado = tts.setLanguage(locale)
 
                 if (
                     resultado == TextToSpeech.LANG_MISSING_DATA ||

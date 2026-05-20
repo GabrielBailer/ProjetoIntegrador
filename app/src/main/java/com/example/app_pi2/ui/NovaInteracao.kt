@@ -95,7 +95,6 @@ class NovaInteracao : AppCompatActivity() {
         val interacao = Interacao(
             id = id,
             titulo = titulo,
-            descricao = "",
             imagem = imagem,
             cor = corSelecionada
         )

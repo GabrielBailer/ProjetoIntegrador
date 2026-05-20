@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.app_pi2.data.model.Interacao
 import com.example.app_pi2.data.local.DAO.InteracaoDao
 
-@Database(entities = [Interacao::class], version = 3)
+@Database(entities = [Interacao::class], version = 4)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun interacaoDao(): InteracaoDao
 
