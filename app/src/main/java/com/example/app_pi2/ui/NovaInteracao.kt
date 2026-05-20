@@ -18,13 +18,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.UUID
+import androidx.core.graphics.toColorInt
+import com.example.app_pi2.utils.AuthManager
+import com.example.app_pi2.utils.InteracaoCores
 
 class NovaInteracao : AppCompatActivity() {
 
     private lateinit var binding: ActivityNovaInteracaoBinding
     private lateinit var firestore: FirebaseFirestore
     private lateinit var dbLocal: AppDatabase
-
     private var nomeImagemSelecionada: String? = null
     private var corSelecionada: String = "#FFFFFF"
 
@@ -34,7 +36,7 @@ class NovaInteracao : AppCompatActivity() {
         setContentView(binding.root)
 
         firestore = FirebaseFirestore.getInstance()
-        dbLocal = AppDatabase.Companion.getInstance(applicationContext)
+        dbLocal = AppDatabase.getInstance(applicationContext)
 
         aplicarCoresNosCirculos()
 
@@ -64,7 +66,7 @@ class NovaInteracao : AppCompatActivity() {
     }
 
     private fun salvarInteracao() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val userId = AuthManager.getUserId()
         if (userId.isNullOrBlank()) {
             Toast.makeText(this, "Usuário não autenticado!", Toast.LENGTH_SHORT).show()
             return
@@ -78,16 +80,16 @@ class NovaInteracao : AppCompatActivity() {
         }
 
         corSelecionada = when (binding.rgCores.checkedRadioButtonId) {
-            binding.corVermelho.id -> "#FFC9C9"
-            binding.corLaranja.id -> "#FFD8B2"
-            binding.corAmarelo.id -> "#FFF3C4"
-            binding.corVerde.id -> "#D4F5DD"
-            binding.corAzul.id -> "#CFE8FF"
-            binding.corRoxo.id -> "#E3D4FF"
+            binding.corVermelho.id -> InteracaoCores.VERMELHO
+            binding.corLaranja.id -> InteracaoCores.LARANJA
+            binding.corAmarelo.id -> InteracaoCores.AMARELO
+            binding.corVerde.id -> InteracaoCores.VERDE
+            binding.corAzul.id -> InteracaoCores.AZUL
+            binding.corRoxo.id -> InteracaoCores.ROXO
             else -> "#FFFFFF"
         }
 
-        val imagem = (nomeImagemSelecionada ?: "alm_cafe_1").substringBeforeLast(".")
+        val imagem = (nomeImagemSelecionada ?: "int_black_baloes").substringBeforeLast(".")
         val id = UUID.randomUUID().toString()
 
         val interacao = Interacao(
@@ -144,14 +146,7 @@ class NovaInteracao : AppCompatActivity() {
 
     private fun pintar(view: View, cor: String) {
         val drawable = view.background.mutate() as? GradientDrawable
-        drawable?.setColor(Color.parseColor(cor))
+        drawable?.setColor(cor.toColorInt())
     }
 
-    fun onImagemSelecionada(nomeImagem: String) {
-        nomeImagemSelecionada = nomeImagem
-        val resId = resources.getIdentifier(nomeImagem, "drawable", packageName)
-        if (resId != 0) {
-            binding.imgInteracao.setImageResource(resId)
-        }
-    }
 }

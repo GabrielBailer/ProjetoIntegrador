@@ -21,13 +21,13 @@ interface InteracaoDao {
     suspend fun countInteracoes(): Int
 
     @Query("SELECT * FROM interacoes WHERE id = :id LIMIT 1")
-    fun getById(id: String): Interacao
+    suspend fun getById(id: String): Interacao
 
     @Update
-    fun update(interacao: Interacao)
+    suspend fun update(interacao: Interacao)
 
     @Delete
-    fun delete(interacao: Interacao)
+    suspend fun delete(interacao: Interacao)
 
     @Upsert
     suspend fun upsertAll(lista: List<Interacao>)

@@ -2,6 +2,7 @@ package com.example.app_pi2.data.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.app_pi2.utils.InteracaoCores
 
 @Entity(tableName = "interacoes")
 data class Interacao(
@@ -12,4 +13,7 @@ data class Interacao(
     val cor: String = "",
 ) {
     constructor() : this("", "", "", null, "")
+
+    val corInt: Int
+        get() = InteracaoCores.toColorInt(cor)
 }

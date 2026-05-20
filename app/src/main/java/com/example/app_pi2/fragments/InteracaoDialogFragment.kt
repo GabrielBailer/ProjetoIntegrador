@@ -10,6 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import com.example.app_pi2.data.local.data.AppDatabase
 import com.example.app_pi2.data.model.Interacao
 import com.example.app_pi2.databinding.FragmentInteracaoDialogBinding
+import com.example.app_pi2.utils.AuthManager
+import com.example.app_pi2.utils.InteracaoCores
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
@@ -100,12 +102,14 @@ class InteracaoDialogFragment : DialogFragment() {
 
     private fun buscarInteracao() {
         val id = interacaoId ?: return
-        lifecycleScope.launch(Dispatchers.IO) {
-            val item = dbLocal.interacaoDao().getById(id)
-            withContext(Dispatchers.Main) {
-                interacao = item
-                preencherDados()
+        lifecycleScope.launch{
+
+            val item = withContext(Dispatchers.IO) {
+                dbLocal.interacaoDao().getById(id)
             }
+
+            interacao = item
+            preencherDados()
         }
     }
 
@@ -121,18 +125,29 @@ class InteracaoDialogFragment : DialogFragment() {
 
             corSelecionada = item.cor.uppercase()
             when (corSelecionada) {
-                "#FFC9C9" -> binding.corVermelho.isChecked = true
-                "#FFD8B2" -> binding.corLaranja.isChecked = true
-                "#FFF3C4" -> binding.corAmarelo.isChecked = true
-                "#D4F5DD" -> binding.corVerde.isChecked = true
-                "#CFE8FF" -> binding.corAzul.isChecked = true
-                "#E3D4FF" -> binding.corRoxo.isChecked = true
+                InteracaoCores.VERMELHO ->
+                    binding.corVermelho.isChecked = true
+
+                InteracaoCores.LARANJA ->
+                    binding.corLaranja.isChecked = true
+
+                InteracaoCores.AMARELO ->
+                    binding.corAmarelo.isChecked = true
+
+                InteracaoCores.VERDE ->
+                    binding.corVerde.isChecked = true
+
+                InteracaoCores.AZUL ->
+                    binding.corAzul.isChecked = true
+
+                InteracaoCores.ROXO ->
+                    binding.corRoxo.isChecked = true
             }
         }
     }
 
     private fun salvarEdicao() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val userId = AuthManager.getUserId()
         if (userId.isNullOrBlank()) {
             Toast.makeText(requireContext(), "Usuário não autenticado", Toast.LENGTH_SHORT).show()
             return
@@ -196,7 +211,7 @@ class InteracaoDialogFragment : DialogFragment() {
     }
 
     private fun deletarInteracao() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val userId = AuthManager.getUserId()
         val item = interacao
         if (userId.isNullOrBlank() || item == null) return
 
@@ -224,5 +239,10 @@ class InteracaoDialogFragment : DialogFragment() {
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

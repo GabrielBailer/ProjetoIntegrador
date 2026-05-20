@@ -79,13 +79,11 @@ class InteracaoAdapter(
         }
 
         val background = holder.binding.layoutCard.background
+
         if (background is GradientDrawable) {
-            try {
-                background.mutate()
-                background.setColor(Color.parseColor(interacao.cor))
-            } catch (_: Exception) {
-                background.setColor(Color.parseColor("#E9E9EE"))
-            }
+            background.mutate()
+
+            background.setColor(interacao.corInt)
         }
     }
 

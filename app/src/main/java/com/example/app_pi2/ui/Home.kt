@@ -27,6 +27,7 @@ import com.example.app_pi2.fragments.ConfiguracoesDialogFragment
 import com.example.app_pi2.fragments.PerfilDialogFragment
 import com.example.app_pi2.utils.ModoResponsavelManager
 import com.example.app_pi2.fragments.InteracaoDialogFragment
+import com.example.app_pi2.utils.AuthManager
 import java.util.Locale
 
 class Home : AppCompatActivity() {
@@ -37,8 +38,8 @@ class Home : AppCompatActivity() {
     private var listenerRegistration: ListenerRegistration? = null
     private val listaOriginal = mutableListOf<Interacao>()
     private lateinit var adapter: InteracaoAdapter
-    private lateinit var auth: FirebaseAuth
-    private var userId: String? = null
+
+    val userId = AuthManager.getUserId()
     private lateinit var tts: TextToSpeech
 
     private var interacaoSelecionada: Interacao? = null
@@ -64,10 +65,6 @@ class Home : AppCompatActivity() {
 
             insets
         }
-
-        auth = FirebaseAuth.getInstance()
-        userId = auth.currentUser?.uid
-
 
         if (userId.isNullOrBlank()) {
             startActivity(Intent(this, TelaLogin::class.java))
@@ -187,33 +184,37 @@ class Home : AppCompatActivity() {
 
         binding.btnFalar.setOnClickListener {
 
-            if (interacaoSelecionada == null && ModoResponsavelManager.isAtivo(this)) {
+            when (interacaoSelecionada) {
+                null if ModoResponsavelManager.isAtivo(this) -> {
 
-                startActivity(Intent(this, NovaInteracao::class.java))
+                    startActivity(Intent(this, NovaInteracao::class.java))
 
-            } else if (interacaoSelecionada == null) {
+                }
+                null -> {
 
-                tts.speak(
-                    "Ative modo de responsável para criar interações",
-                    TextToSpeech.QUEUE_FLUSH,
-                    null,
-                    null
-                )
+                    tts.speak(
+                        "Ative modo de responsável para criar interações",
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        null
+                    )
 
-            } else {
+                }
+                else -> {
 
-                val texto = interacaoSelecionada?.titulo?.trim().orEmpty()
+                    val texto = interacaoSelecionada?.titulo?.trim().orEmpty()
 
-                tts.speak(
-                    texto,
-                    TextToSpeech.QUEUE_FLUSH,
-                    null,
-                    null
-                )
+                    tts.speak(
+                        texto,
+                        TextToSpeech.QUEUE_FLUSH,
+                        null,
+                        null
+                    )
 
-                interacaoSelecionada = null
+                    interacaoSelecionada = null
 
-                atualizarEstadoBotaoFalar()
+                    atualizarEstadoBotaoFalar()
+                }
             }
         }
 
