@@ -49,7 +49,7 @@ class TelaLogin : AppCompatActivity() {
                 }
         }
 
-        binding.btnCriarConta.setOnClickListener {
+        binding.tvCriarContaTexto.setOnClickListener {
             startActivity(Intent(this, NovoCadastro::class.java))
         }
 

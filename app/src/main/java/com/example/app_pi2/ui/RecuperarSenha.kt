@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app_pi2.R
@@ -14,7 +15,7 @@ class RecuperarSenha : AppCompatActivity() {
 
     private lateinit var editEmail: EditText
     private lateinit var btnEnviar: Button
-    private lateinit var btnVoltar: Button
+    private lateinit var btnVoltar: ImageButton
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {

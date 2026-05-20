@@ -15,48 +15,39 @@
         android:id="@+id/ivLoginLogo"
         android:layout_width="456dp"
         android:layout_height="110dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="44dp"
         android:adjustViewBounds="true"
         android:contentDescription="@string/logo_content_description"
         android:scaleType="centerCrop"
         android:src="@drawable/logo_fc"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvBemVindo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAcessar"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_marginTop="12dp"
-        android:text="Bem-vindo!"
-        android:textColor="#7D7F9A"
-        android:textSize="17sp"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivLoginLogo"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tvLabelEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
-        android:text="E-mail"
-        android:textColor="#000000"
-        android:textSize="14sp"
+        android:backgroundTint="#A4D8FF"
+        android:text="Entrar"
+        android:textAllCaps="false"
+        android:textColor="#35393C"
         android:textStyle="bold"
+        app:backgroundTint="@android:color/black"
+        app:cornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvBemVindo" />
+        app:layout_constraintTop_toBottomOf="@id/text_esqueci_senha" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilEmail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:hint="E-mail"
         app:boxBackgroundColor="#F7F7F7"
         app:boxBackgroundMode="outline"
@@ -68,46 +59,43 @@
         app:boxStrokeWidth="1dp"
         app:boxStrokeWidthFocused="1dp"
         app:hintEnabled="false"
-        app:startIconDrawable="@android:drawable/ic_dialog_email"
-        app:startIconTint="#8A8CA5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvLabelEmail">
+        app:layout_constraintTop_toBottomOf="@id/tvLabelEmail"
+        app:startIconDrawable="@android:drawable/ic_dialog_email"
+        app:startIconTint="#8A8CA5">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:gravity="center_vertical"
             android:hint="E-mail"
             android:inputType="textEmailAddress"
-            android:paddingStart="4dp"
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
             android:textColor="#333333"
             android:textColorHint="#8A8CA5"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/tvLabelSenha"
+        android:id="@+id/tvCriarContaTexto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:text="Senha"
-        android:textColor="#000000"
+        android:layout_marginTop="40dp"
+        android:text="Ainda não tem uma conta?"
+        android:textColor="#7D7F9A"
         android:textSize="14sp"
-        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilEmail" />
+        app:layout_constraintTop_toBottomOf="@id/btnAcessar" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilSenha"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="56dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:hint="Senha"
         app:boxBackgroundColor="#F7F7F7"
         app:boxBackgroundMode="outline"
@@ -121,33 +109,45 @@
         app:endIconMode="password_toggle"
         app:endIconTint="#8A8CA5"
         app:hintEnabled="false"
-        app:startIconDrawable="@android:drawable/ic_lock_lock"
-        app:startIconTint="#8A8CA5"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvLabelSenha">
+        app:layout_constraintTop_toBottomOf="@id/tvLabelSenha"
+        app:startIconDrawable="@android:drawable/ic_lock_lock"
+        app:startIconTint="#8A8CA5">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:gravity="center_vertical"
             android:hint="Senha"
             android:inputType="textPassword"
-            android:paddingStart="4dp"
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
             android:textColor="#333333"
             android:textColorHint="#8A8CA5"
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/text_esqueci_senha"
+        android:id="@+id/tvBemVindo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
+        android:text="Bem-vindo!"
+        android:textColor="#7D7F9A"
+        android:textSize="17sp"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivLoginLogo"
+        app:layout_constraintVertical_bias="0.007" />
+
+    <TextView
+        android:id="@+id/text_esqueci_senha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="Esqueci minha senha"
         android:textColor="#7D7F9A"
         android:textSize="13sp"
@@ -155,49 +155,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilSenha" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnAcessar"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="24dp"
-        android:text="Entrar"
-        android:textAllCaps="false"
-        android:backgroundTint="#A4D8FF"
-        android:textColor="#35393C"
-        android:textStyle="bold"
-        app:backgroundTint="@android:color/black"
-        app:cornerRadius="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_esqueci_senha" />
-
     <TextView
-        android:id="@+id/tvCriarContaTexto"
+        android:id="@+id/tvLabelEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:text="Ainda não tem uma conta?"
-        android:textColor="#7D7F9A"
+        android:layout_marginTop="24dp"
+        android:text="E-mail"
+        android:textColor="#000000"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnAcessar" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCriarConta"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="14dp"
-        android:text="Criar nova conta"
-        android:textAllCaps="false"
-        android:backgroundTint="#35393C"
-        android:textColor="#A4D8FF"
         android:textStyle="bold"
-        app:cornerRadius="16dp"
-        app:strokeWidth="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCriarContaTexto" />
+        app:layout_constraintTop_toBottomOf="@id/tvBemVindo" />
+
+    <TextView
+        android:id="@+id/tvLabelSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Senha"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilEmail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

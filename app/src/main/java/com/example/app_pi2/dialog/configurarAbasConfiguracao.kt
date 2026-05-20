@@ -16,6 +16,9 @@ fun configurarAbasConfiguracao(view: View) {
     val cardModoEscuro = view.findViewById<LinearLayout>(R.id.cardModoEscuro)
     val cardModoResponsavel = view.findViewById<LinearLayout>(R.id.cardModoResponsavel)
 
+    // 1. Buscamos o TextView da descrição
+    val tvDescricaoConfiguracao = view.findViewById<TextView>(R.id.tvDescricaoConfiguracao)
+
     val corAtiva = ContextCompat.getColor(view.context, android.R.color.black)
     val corInativa = ContextCompat.getColor(view.context, android.R.color.darker_gray)
 
@@ -27,6 +30,8 @@ fun configurarAbasConfiguracao(view: View) {
 
         cardModoEscuro.visibility = View.VISIBLE
         cardModoResponsavel.visibility = View.GONE
+
+        tvDescricaoConfiguracao.text = "O modo escuro reduz o brilho da tela e pode ajudar a diminuir o cansaço visual, especialmente em ambientes com pouca luz."
 
         indicadorTab.post {
             indicadorTab.animate().x(tabAparencia.x).setDuration(200).start()
@@ -44,6 +49,8 @@ fun configurarAbasConfiguracao(view: View) {
 
         cardModoEscuro.visibility = View.GONE
         cardModoResponsavel.visibility = View.VISIBLE
+
+        tvDescricaoConfiguracao.text = "O modo responsável exige a senha do responsável para autorizar a inclusão de novas interações e o modo edição."
 
         indicadorTab.post {
             indicadorTab.animate().x(tabSeguranca.x).setDuration(200).start()
