@@ -112,8 +112,8 @@
         <Button
             android:id="@+id/btnAcao"
             android:layout_width="0dp"
-            android:backgroundTint="#A4D8FF"
-            android:textColor="#35393C"
+            android:backgroundTint="#35393C"
+            android:textColor="#A4D8FF"
             android:textStyle="bold"
             android:layout_height="wrap_content"
             android:text="Editar"

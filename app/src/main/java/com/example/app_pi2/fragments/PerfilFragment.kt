@@ -10,16 +10,16 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.app_pi2.databinding.FragmentPerfilBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.example.app_pi2.utils.FirestoreManager
+import com.example.app_pi2.utils.AuthManager
 
 class PerfilDialogFragment : DialogFragment() {
 
     private var _binding: FragmentPerfilBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
+
+    private val db = FirestoreManager.db
 
     private var modoEdicao = false
 
@@ -32,9 +32,6 @@ class PerfilDialogFragment : DialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
-
         carregarDados()
         configurarBotoes()
     }
@@ -58,7 +55,7 @@ class PerfilDialogFragment : DialogFragment() {
 
         binding.tvSair.setOnClickListener {
 
-            auth.signOut()
+            AuthManager.logout()
             dismiss()
             val intent = Intent(requireActivity(), TelaLogin::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -98,7 +95,7 @@ class PerfilDialogFragment : DialogFragment() {
     }
 
     private fun carregarDados() {
-        val uid = auth.currentUser?.uid ?: return
+        val uid = AuthManager.getUserId() ?: return
 
         db.collection("usuarios")
             .document(uid)
@@ -119,17 +116,20 @@ class PerfilDialogFragment : DialogFragment() {
     }
 
     private fun salvarPerfil() {
-        val uid = auth.currentUser?.uid ?: return
+        val uid = AuthManager.getUserId() ?: return
 
-        val dados = hashMapOf(
+        val dados: Map<String, Any> = mapOf(
+
             "nomeUsuario" to binding.etNome.text.toString(),
+
             "email" to binding.etEmail.text.toString(),
+
             "numeroContato" to binding.etContato.text.toString()
         )
 
         db.collection("usuarios")
             .document(uid)
-            .update(dados as Map<String, Any>)
+            .update(dados)
             .addOnSuccessListener {
                 Toast.makeText(requireContext(), "Salvo!", Toast.LENGTH_SHORT).show()
                 alternarModo(false)

@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.DialogFragment
 import com.example.app_pi2.databinding.FragmentConfirguracoesBinding
 import com.example.app_pi2.dialog.configurarAbasConfiguracao
 import com.example.app_pi2.utils.ModoResponsavelManager
+import com.example.app_pi2.utils.ThemeManager
 
 class ConfiguracoesDialogFragment : DialogFragment() {
 
@@ -30,24 +32,35 @@ class ConfiguracoesDialogFragment : DialogFragment() {
             dismiss()
         }
 
-        // Chama a SUA função que controla as abas e a linha indicadora
         configurarAbasConfiguracao(binding.root)
 
-        // Configura a lógica de ligar/desligar os botões
         configurarSwitches()
     }
 
     private fun configurarSwitches() {
-        // --- 1. Lógica do Switch Modo Escuro ---
+        // Switch Modo Escuro
+        val isDarkMode = ThemeManager.isModoEscuro(requireContext())
+
+        binding.switchModoEscuro.isChecked = isDarkMode
+        binding.tvStatusModo.text =
+            if (isDarkMode) "Ativado" else "Desativado"
+
         binding.switchModoEscuro.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                binding.tvStatusModo.text = "Ativado"
-            } else {
-                binding.tvStatusModo.text = "Desativado"
-            }
+
+            ThemeManager.salvarModoEscuro(requireContext(), isChecked)
+
+            binding.tvStatusModo.text =
+                if (isChecked) "Ativado" else "Desativado"
+
+            AppCompatDelegate.setDefaultNightMode(
+                if (isChecked)
+                    AppCompatDelegate.MODE_NIGHT_YES
+                else
+                    AppCompatDelegate.MODE_NIGHT_NO
+            )
         }
 
-        // --- 2. Lógica do Switch Modo Responsável ---
+        // Switch Modo Responsável
         val isResponsavelAtivo = ModoResponsavelManager.isAtivo(requireContext())
         binding.switchResponsavel.isChecked = isResponsavelAtivo
 

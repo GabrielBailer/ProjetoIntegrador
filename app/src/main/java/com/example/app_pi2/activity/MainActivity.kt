@@ -8,6 +8,7 @@ import com.example.app_pi2.ui.Home
 import com.example.app_pi2.ui.TelaLogin
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
+import com.example.app_pi2.utils.ThemeManager
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        ThemeManager.aplicarTema(this)
 
         super.onCreate(savedInstanceState)
         auth = FirebaseAuth.getInstance()

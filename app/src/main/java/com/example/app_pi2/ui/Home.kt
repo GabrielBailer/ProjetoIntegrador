@@ -16,7 +16,6 @@ import com.example.app_pi2.adapter.InteracaoAdapter
 import com.example.app_pi2.data.local.data.AppDatabase
 import com.example.app_pi2.data.model.Interacao
 import com.example.app_pi2.databinding.ActivityHomeBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.Dispatchers
@@ -38,10 +37,8 @@ class Home : AppCompatActivity() {
     private var listenerRegistration: ListenerRegistration? = null
     private val listaOriginal = mutableListOf<Interacao>()
     private lateinit var adapter: InteracaoAdapter
-
     val userId = AuthManager.getUserId()
     private lateinit var tts: TextToSpeech
-
     private var interacaoSelecionada: Interacao? = null
 
 
@@ -346,7 +343,7 @@ class Home : AppCompatActivity() {
         listaOriginal.clear()
         listaOriginal.addAll(lista)
 
-        adapter.submitList(lista)
+        adapter.submitList(lista.toList())
     }
 
     private fun filtrarInteracoes(texto: String?) {
@@ -362,7 +359,7 @@ class Home : AppCompatActivity() {
             }
         }
 
-        adapter.submitList(resultado)
+        adapter.submitList(resultado.toList())
     }
 
     override fun onDestroy() {
@@ -381,5 +378,9 @@ class Home : AppCompatActivity() {
         super.onResume()
 
         aplicarModoResponsavel()
+
+        if (listaOriginal.isNotEmpty()) {
+            adapter.submitList(listaOriginal.toList())
+        }
     }
 }
