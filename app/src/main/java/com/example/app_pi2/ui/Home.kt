@@ -27,6 +27,7 @@ import com.example.app_pi2.fragments.PerfilDialogFragment
 import com.example.app_pi2.utils.ModoResponsavelManager
 import com.example.app_pi2.fragments.InteracaoDialogFragment
 import com.example.app_pi2.utils.AuthManager
+import com.example.app_pi2.utils.FalaAutomaticaManager
 import java.util.Locale
 
 class Home : AppCompatActivity() {
@@ -88,9 +89,26 @@ class Home : AppCompatActivity() {
 
         adapter = InteracaoAdapter { interacao ->
 
-            interacaoSelecionada = interacao
+            val falaAutomatica =
+                FalaAutomaticaManager.isAtivo(this)
 
-            atualizarEstadoBotaoFalar()
+            if (falaAutomatica) {
+
+                val texto = interacao.titulo.trim()
+
+                tts.speak(
+                    texto,
+                    TextToSpeech.QUEUE_FLUSH,
+                    null,
+                    null
+                )
+
+            } else {
+
+                interacaoSelecionada = interacao
+
+                atualizarEstadoBotaoFalar()
+            }
         }
 
         val spanCount = if (resources.getBoolean(R.bool.isTablet)) 3 else 2

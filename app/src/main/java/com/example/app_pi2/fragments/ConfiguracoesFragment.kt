@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.app_pi2.databinding.FragmentConfirguracoesBinding
 import com.example.app_pi2.dialog.configurarAbasConfiguracao
 import com.example.app_pi2.utils.ModoResponsavelManager
+import com.example.app_pi2.utils.FalaAutomaticaManager
 import com.example.app_pi2.utils.ThemeManager
 
 class ConfiguracoesDialogFragment : DialogFragment() {
@@ -84,6 +85,27 @@ class ConfiguracoesDialogFragment : DialogFragment() {
                 ModoResponsavelManager.setAtivo(requireContext(), true)
                 Toast.makeText(requireContext(), "Modo Responsável ativado!", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        // Switch Fala Automática
+        val falaAutomaticaAtiva =
+            FalaAutomaticaManager.isAtivo(requireContext())
+
+        binding.switchFalaAltomatica.isChecked =
+            falaAutomaticaAtiva
+
+        binding.tvFalaAltomatica.text =
+            if (falaAutomaticaAtiva) "Ativado" else "Desativado"
+
+        binding.switchFalaAltomatica.setOnCheckedChangeListener { _, isChecked ->
+
+            FalaAutomaticaManager.setAtivo(
+                requireContext(),
+                isChecked
+            )
+
+            binding.tvFalaAltomatica.text =
+                if (isChecked) "Ativado" else "Desativado"
         }
     }
 
