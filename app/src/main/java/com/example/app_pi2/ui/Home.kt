@@ -29,6 +29,7 @@ import com.example.app_pi2.fragments.InteracaoDialogFragment
 import com.example.app_pi2.utils.AuthManager
 import com.example.app_pi2.utils.FalaAutomaticaManager
 import java.util.Locale
+import androidx.core.content.ContextCompat
 
 class Home : AppCompatActivity() {
 
@@ -305,13 +306,18 @@ class Home : AppCompatActivity() {
 
         if (interacaoSelecionada != null) {
 
-            binding.btnFalar.setBackgroundColor(Color.parseColor("#A4D8FF"))
-            binding.btnFalar.setTextColor(Color.parseColor("#35393C"))
+            binding.btnFalar.backgroundTintList =
+                ContextCompat.getColorStateList(this, R.color.button_primary)
+
+            binding.btnFalar.setTextColor(
+                ContextCompat.getColor(this, R.color.text_primary)
+            )
             binding.btnFalar.text = "Falar"
 
         } else {
 
-            binding.btnFalar.setBackgroundColor(Color.parseColor("#A9A9B2"))
+            binding.btnFalar.backgroundTintList =
+                ContextCompat.getColorStateList(this, R.color.text_secondary)
             binding.btnFalar.text = "Criar interação"
         }
     }

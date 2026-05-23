@@ -44,7 +44,7 @@ class ImagemAdapter(
             holder.binding.cardImagem.strokeWidth = 6
             holder.binding.cardImagem.strokeColor = ContextCompat.getColor(
                 context,
-                R.color.cor_botao_primario
+                R.color.button_primary
             )
             holder.binding.cardImagem.cardElevation = 6f
         } else {

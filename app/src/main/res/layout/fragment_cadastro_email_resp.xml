@@ -4,24 +4,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="@color/bg_primary"
     android:padding="20dp">
 
     <EditText
         android:id="@+id/edit_email_alternativo"
         android:layout_width="match_parent"
-        android:minWidth="700dp"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_edittext"
         android:hint="Digite o e-mail do Responsável"
         android:inputType="textEmailAddress"
-        android:textColorHint="@color/black"
-        android:textColor="@color/black"
+        android:minWidth="700dp"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/text_secondary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.265" />
+        app:layout_constraintVertical_bias="0.208" />
 
     <Button
         android:id="@+id/btn_enviar_codigo"
@@ -30,14 +31,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Enviar código"
-        android:backgroundTint="#A4D8FF"
-        android:textColor="#35393C"
+        android:backgroundTint="@color/button_primary"
+        android:textColor="@color/button_text"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_email_alternativo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_email_alternativo" />
-
-
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

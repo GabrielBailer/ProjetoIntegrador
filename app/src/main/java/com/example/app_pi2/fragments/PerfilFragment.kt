@@ -2,13 +2,14 @@ package com.example.app_pi2.fragments
 
 import android.content.Intent
 import com.example.app_pi2.ui.TelaLogin
-import android.graphics.Color
+import androidx.core.content.ContextCompat
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.example.app_pi2.R
 import com.example.app_pi2.databinding.FragmentPerfilBinding
 import com.example.app_pi2.utils.FirestoreManager
 import com.example.app_pi2.utils.AuthManager
@@ -65,9 +66,11 @@ class PerfilDialogFragment : DialogFragment() {
     }
 
     private fun alternarModo(editar: Boolean) {
+
         modoEdicao = editar
 
         if (editar) {
+
             binding.tvNome.visibility = View.GONE
             binding.tvEmail.visibility = View.GONE
             binding.tvContato.visibility = View.GONE
@@ -77,9 +80,22 @@ class PerfilDialogFragment : DialogFragment() {
             binding.etContato.visibility = View.VISIBLE
 
             binding.btnAcao.text = "Salvar"
-            binding.btnAcao.setTextColor(Color.parseColor("#35393C"))
-            binding.btnAcao.setBackgroundColor(Color.parseColor("#A4D8FF"))
+
+            binding.btnAcao.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.button_primary
+                )
+            )
+
+            binding.btnAcao.backgroundTintList =
+                ContextCompat.getColorStateList(
+                    requireContext(),
+                    R.color.text_primary
+                )
+
         } else {
+
             binding.tvNome.visibility = View.VISIBLE
             binding.tvEmail.visibility = View.VISIBLE
             binding.tvContato.visibility = View.VISIBLE
@@ -89,8 +105,19 @@ class PerfilDialogFragment : DialogFragment() {
             binding.etContato.visibility = View.GONE
 
             binding.btnAcao.text = "Editar"
-            binding.btnAcao.setTextColor(Color.parseColor("#A4D8FF"))
-            binding.btnAcao.setBackgroundColor(Color.parseColor("#35393C"))
+
+            binding.btnAcao.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.button_primary
+                )
+            )
+
+            binding.btnAcao.backgroundTintList =
+                ContextCompat.getColorStateList(
+                    requireContext(),
+                    R.color.text_primary
+                )
         }
     }
 

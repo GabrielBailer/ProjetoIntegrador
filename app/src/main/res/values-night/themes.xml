@@ -1,7 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.App_PI2" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+
+        <!-- CORES PRINCIPAIS -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+
+        <!-- FUNDOS -->
+        <item name="android:windowBackground">@color/bg_primary</item>
+        <item name="colorSurface">@color/surface_color</item>
+
+        <!-- TEXTOS -->
+        <item name="android:textColor">@color/text_primary</item>
+
+        <!-- STATUS BAR -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <!-- NAVIGATION BAR -->
+        <item name="android:navigationBarColor">@color/bg_primary</item>
     </style>
 </resources>

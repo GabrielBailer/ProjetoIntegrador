@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7F7F7"
+    android:background="@color/bg_primary"
     android:padding="20dp">
 
     <LinearLayout
@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Selecione uma cor:"
-            android:textColor="@color/black"
+            android:textColor="@color/text_primary"
             android:textSize="16sp"
             android:layout_marginBottom="12dp" />
 
@@ -95,7 +95,7 @@
             android:layout_height="56dp"
             android:layout_marginBottom="24dp"
             android:hint="Título da interação"
-            android:background="@android:drawable/edit_text"
+            android:background="@drawable/bg_edittext"
             android:paddingHorizontal="12dp" />
 
         <!-- BOTÃO -->
@@ -104,8 +104,8 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:text="Salvar"
-            android:backgroundTint="#A4D8FF"
-            android:textColor="#35393C"
+            android:backgroundTint="@color/button_primary"
+            android:textColor="@color/button_text"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textAllCaps="false" />

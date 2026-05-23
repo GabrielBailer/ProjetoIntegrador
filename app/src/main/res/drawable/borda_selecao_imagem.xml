@@ -7,7 +7,7 @@
             <solid android:color="@android:color/transparent"/>
             <stroke
                 android:width="3dp"
-                android:color="@color/cor_botao_primario"/>
+                android:color="@color/button_primary"/>
             <corners android:radius="20dp"/>
         </shape>
     </item>
