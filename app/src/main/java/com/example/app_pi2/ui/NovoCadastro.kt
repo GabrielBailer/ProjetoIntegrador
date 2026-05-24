@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback // Import necessário para o gesto de voltar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app_pi2.databinding.ActivityCriarContaBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -26,10 +27,14 @@ class NovoCadastro : AppCompatActivity() {
 
         binding.btnAdd.setOnClickListener { addUsuario() }
         binding.btnLimpar.setOnClickListener { limparCampos() }
-        binding.btnVoltar.setOnClickListener {
-            startActivity(Intent(this, TelaLogin::class.java))
-            finish()
-        }
+
+        // --- Intercepta o gesto de "Voltar" do celular para ir à Tela de Login ---
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                startActivity(Intent(this@NovoCadastro, TelaLogin::class.java))
+                finish()
+            }
+        })
     }
 
     private fun addUsuario() {

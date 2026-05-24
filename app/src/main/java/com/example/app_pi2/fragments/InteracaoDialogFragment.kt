@@ -72,10 +72,6 @@ class InteracaoDialogFragment : DialogFragment() {
                 .show(childFragmentManager, "selecionar_imagem")
         }
 
-        binding.btnVoltar.setOnClickListener {
-            dismiss()
-        }
-
         binding.btnExcluir.setOnClickListener {
             deletarInteracao()
         }

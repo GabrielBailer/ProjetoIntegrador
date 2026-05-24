@@ -29,10 +29,6 @@ class ConfiguracoesDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnFechar.setOnClickListener {
-            dismiss()
-        }
-
         configurarAbasConfiguracao(binding.root)
 
         configurarSwitches()
@@ -87,24 +83,24 @@ class ConfiguracoesDialogFragment : DialogFragment() {
             }
         }
 
-        // Switch Fala Automática
+        // --- CORREÇÃO: Switch Fala Automática (trocado de "Altomatica" para "Automatica") ---
         val falaAutomaticaAtiva =
             FalaAutomaticaManager.isAtivo(requireContext())
 
-        binding.switchFalaAltomatica.isChecked =
+        binding.switchFalaAutomatica.isChecked =
             falaAutomaticaAtiva
 
-        binding.tvFalaAltomatica.text =
+        binding.tvFalaAutomatica.text =
             if (falaAutomaticaAtiva) "Ativado" else "Desativado"
 
-        binding.switchFalaAltomatica.setOnCheckedChangeListener { _, isChecked ->
+        binding.switchFalaAutomatica.setOnCheckedChangeListener { _, isChecked ->
 
             FalaAutomaticaManager.setAtivo(
                 requireContext(),
                 isChecked
             )
 
-            binding.tvFalaAltomatica.text =
+            binding.tvFalaAutomatica.text =
                 if (isChecked) "Ativado" else "Desativado"
         }
     }

@@ -17,6 +17,7 @@
         android:minWidth="700dp"
         android:textColor="@color/text_primary"
         android:textColorHint="@color/text_secondary"
+        android:padding="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

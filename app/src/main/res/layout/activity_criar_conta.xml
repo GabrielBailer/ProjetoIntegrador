@@ -38,19 +38,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etNumeroContato" />
 
-    <ImageButton
-        android:id="@+id/btnVoltar"
-        android:layout_width="52dp"
-        android:layout_height="52dp"
-        android:background="@drawable/button_circular_background"
-        android:contentDescription="Fechar janela"
-        android:padding="12dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/bt_voltar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="434dp" />
-
     <EditText
         android:id="@+id/etSenha"
         android:layout_width="0dp"

@@ -1,116 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_primary"
-    android:padding="20dp">
+    android:fillViewport="true"
+    android:overScrollMode="never">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="32dp">
+        android:paddingStart="24dp"
+        android:paddingTop="32dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="32dp">
 
-        <!-- IMAGEM -->
-        <ImageView
-            android:background="@color/primary"
-            android:id="@+id/imgInteracao"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="24dp"
-            android:src="@drawable/int_black_feliz" />
-
-        <!-- TEXTO -->
         <TextView
+            android:id="@+id/tvTituloPagina"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Selecione uma cor:"
+            android:text="Criar interação"
             android:textColor="@color/text_primary"
-            android:textSize="16sp"
-            android:layout_marginBottom="12dp" />
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- CORES -->
+        <ImageView
+            android:id="@+id/imgInteracao"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/primary"
+            android:src="@drawable/int_black_feliz"
+            android:padding="18dp"
+            android:scaleType="fitCenter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTituloPagina" />
+
+        <TextView
+            android:id="@+id/tvLabelTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Título"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgInteracao" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilTitulo"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:boxBackgroundColor="@color/bg_secondary"
+            app:boxBackgroundMode="outline"
+            app:boxCornerRadiusBottomEnd="24dp"
+            app:boxCornerRadiusBottomStart="24dp"
+            app:boxCornerRadiusTopEnd="24dp"
+            app:boxCornerRadiusTopStart="24dp"
+            app:boxStrokeColor="@color/surface_color"
+            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidthFocused="2dp"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLabelTitulo">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTituloInteracao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Título da interação"
+                android:importantForAutofill="yes"
+                android:minHeight="56dp"
+                android:paddingStart="12dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:textColor="@color/text_primary"
+                android:textColorHint="@color/text_secondary"
+                android:textSize="15sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tvLabelCores"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="Cor do card"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilTitulo" />
+
         <RadioGroup
             android:id="@+id/rgCores"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
+            android:weightSum="6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLabelCores">
 
             <RadioButton
                 android:id="@+id/corVermelho"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
                 android:background="@drawable/cor_vermelho"
                 android:button="@null" />
 
             <RadioButton
                 android:id="@+id/corLaranja"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
                 android:background="@drawable/cor_laranja"
                 android:button="@null" />
 
             <RadioButton
                 android:id="@+id/corAmarelo"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
                 android:background="@drawable/cor_amarelo"
                 android:button="@null" />
 
             <RadioButton
                 android:id="@+id/corVerde"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
                 android:background="@drawable/cor_verde"
                 android:button="@null" />
 
             <RadioButton
                 android:id="@+id/corAzul"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
                 android:background="@drawable/cor_azul"
                 android:button="@null" />
 
             <RadioButton
                 android:id="@+id/corRoxo"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
+                android:layout_width="0dp"
+                android:layout_height="42dp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="4dp"
                 android:background="@drawable/cor_roxo"
                 android:button="@null" />
-
         </RadioGroup>
 
-        <!-- INPUT -->
-        <EditText
-            android:id="@+id/etTituloInteracao"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginBottom="24dp"
-            android:hint="Título da interação"
-            android:background="@drawable/bg_edittext"
-            android:paddingHorizontal="12dp" />
-
-        <!-- BOTÃO -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSalvarInteracao"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="56dp"
+            android:layout_marginTop="32dp"
             android:text="Salvar"
+            android:textAllCaps="false"
             android:backgroundTint="@color/primary"
             android:textColor="@color/on_primary"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textSize="16sp"
-            android:textAllCaps="false" />
+            app:cornerRadius="18dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rgCores" />
 
-    </LinearLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

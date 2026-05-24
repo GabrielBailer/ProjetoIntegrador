@@ -15,24 +15,18 @@ class RecuperarSenha : AppCompatActivity() {
 
     private lateinit var editEmail: EditText
     private lateinit var btnEnviar: Button
-    private lateinit var btnVoltar: ImageButton
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recuperar_senha)
 
-        editEmail = findViewById(R.id.edit_email)
-        btnEnviar = findViewById(R.id.btn_enviar)
-        btnVoltar = findViewById(R.id.btnVoltar)
+        editEmail = findViewById(R.id.etEmail)
+        btnEnviar = findViewById(R.id.btnEnviar)
         auth = FirebaseAuth.getInstance()
 
         btnEnviar.setOnClickListener {
             enviarEmailRecuperacao()
-        }
-
-        btnVoltar.setOnClickListener {
-            voltarParaLogin()
         }
     }
 
