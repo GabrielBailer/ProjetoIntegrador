@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sair"
-        android:textColor="#E53935"
+        android:textColor="@color/primary"
         android:textSize="20sp"
         android:textStyle="bold"
         android:paddingStart="12dp"
@@ -40,10 +40,10 @@
     <TextView
         android:id="@+id/tvNome"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="33dp"
+        android:layout_marginBottom="8dp"
         android:text="Nome"
-        android:textColor="#35393C"
-        android:layout_marginBottom="8dp"/>
+        android:textColor="@color/text_primary" />
 
     <EditText
         android:id="@+id/etNome"
@@ -58,10 +58,10 @@
     <TextView
         android:id="@+id/tvEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="33dp"
+        android:layout_marginBottom="8dp"
         android:text="Email"
-        android:textColor="#35393C"
-        android:layout_marginBottom="8dp"/>
+        android:textColor="@color/text_primary" />
 
     <EditText
         android:id="@+id/etEmail"
@@ -77,10 +77,10 @@
     <TextView
         android:id="@+id/tvContato"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#35393C"
+        android:layout_height="33dp"
+        android:layout_marginBottom="16dp"
         android:text="Telefone"
-        android:layout_marginBottom="16dp"/>
+        android:textColor="@color/text_primary" />
 
     <EditText
         android:id="@+id/etContato"
@@ -102,8 +102,8 @@
             android:id="@+id/btnCancelar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/text_primary"
-            android:textColor="@color/button_primary"
+            android:backgroundTint="@color/on_primary"
+            android:textColor="@color/primary"
             android:textStyle="bold"
             android:text="Cancelar"
             android:layout_weight="1"
@@ -112,8 +112,8 @@
         <Button
             android:id="@+id/btnAcao"
             android:layout_width="0dp"
-            android:backgroundTint="@color/text_primary"
-            android:textColor="@color/button_primary"
+            android:backgroundTint="@color/on_primary"
+            android:textColor="@color/primary"
             android:textStyle="bold"
             android:layout_height="wrap_content"
             android:text="Editar"

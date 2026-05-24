@@ -18,5 +18,9 @@
 
         <!-- NAVIGATION BAR -->
         <item name="android:navigationBarColor">@color/bg_primary</item>
+
+        <item name="ic_perfil">@drawable/ic_white_perfil</item>
+
+        <item name="ic_config">@drawable/ic_white_config</item>
     </style>
 </resources>

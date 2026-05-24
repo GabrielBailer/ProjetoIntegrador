@@ -39,8 +39,8 @@
         android:id="@+id/btn_enviar"
         android:layout_width="260dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/button_primary"
-        android:textColor="@color/button_text"
+        android:backgroundTint="@color/primary"
+        android:textColor="@color/on_primary"
         android:textStyle="bold"
         android:text="Enviar Email de Recuperação" />
 

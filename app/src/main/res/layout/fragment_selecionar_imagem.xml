@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
+    android:background="@color/on_primary"
     android:padding="20dp">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,8 +25,8 @@
         android:layout_height="52dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="6dp"
-        android:backgroundTint="@color/button_primary"
-        android:textColor="@color/text_primary"
+        android:backgroundTint="@color/primary"
+        android:textColor="@color/on_primary"
         android:textStyle="bold"
         android:text="Confirmar Imagem"
         app:layout_constraintBottom_toBottomOf="parent"

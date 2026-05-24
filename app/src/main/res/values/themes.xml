@@ -18,6 +18,10 @@
 
         <!-- NAVIGATION BAR -->
         <item name="android:navigationBarColor">@color/bg_primary</item>
+
+        <item name="ic_perfil">@drawable/ic_black_perfil</item>
+
+        <item name="ic_config">@drawable/ic_black_config</item>
     </style>
 
     <style name="Theme.App_PI2" parent="Base.Theme.App_PI2" />

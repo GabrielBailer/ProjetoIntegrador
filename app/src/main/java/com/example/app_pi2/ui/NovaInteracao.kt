@@ -1,7 +1,6 @@
 package com.example.app_pi2.ui
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
@@ -12,7 +11,6 @@ import com.example.app_pi2.fragments.SelecionarImagemFragment
 import com.example.app_pi2.data.local.data.AppDatabase
 import com.example.app_pi2.data.model.Interacao
 import com.example.app_pi2.databinding.ActivityNovaInteracaoBinding
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -84,14 +84,14 @@ class PerfilDialogFragment : DialogFragment() {
             binding.btnAcao.setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.button_primary
+                    R.color.on_primary
                 )
             )
 
             binding.btnAcao.backgroundTintList =
                 ContextCompat.getColorStateList(
                     requireContext(),
-                    R.color.text_primary
+                    R.color.primary
                 )
 
         } else {
@@ -109,14 +109,14 @@ class PerfilDialogFragment : DialogFragment() {
             binding.btnAcao.setTextColor(
                 ContextCompat.getColor(
                     requireContext(),
-                    R.color.button_primary
+                    R.color.primary
                 )
             )
 
             binding.btnAcao.backgroundTintList =
                 ContextCompat.getColorStateList(
                     requireContext(),
-                    R.color.text_primary
+                    R.color.on_primary
                 )
         }
     }

@@ -307,18 +307,36 @@ class Home : AppCompatActivity() {
         if (interacaoSelecionada != null) {
 
             binding.btnFalar.backgroundTintList =
-                ContextCompat.getColorStateList(this, R.color.button_primary)
+                ContextCompat.getColorStateList(this, R.color.primary)
 
             binding.btnFalar.setTextColor(
-                ContextCompat.getColor(this, R.color.text_primary)
+                ContextCompat.getColor(this, R.color.on_primary)
             )
+
+            binding.btnFalar.iconTint = ContextCompat.getColorStateList(this, R.color.on_primary)
+
             binding.btnFalar.text = "Falar"
+
+
+            binding.btnEditar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.on_primary)
+            binding.btnEditar.iconTint = ContextCompat.getColorStateList(this, R.color.primary)
+            binding.btnDeletar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.on_primary)
+            binding.btnDeletar.iconTint = ContextCompat.getColorStateList(this, R.color.primary)
 
         } else {
 
+            binding.btnFalar.setTextColor(ContextCompat.getColor(this, R.color.primary))
+
             binding.btnFalar.backgroundTintList =
-                ContextCompat.getColorStateList(this, R.color.text_secondary)
+                ContextCompat.getColorStateList(this, R.color.on_primary)
             binding.btnFalar.text = "Criar interação"
+
+            binding.btnFalar.iconTint = ContextCompat.getColorStateList(this, R.color.primary)
+
+            binding.btnEditar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.bg_secondary)
+            binding.btnEditar.iconTint = ContextCompat.getColorStateList(this, R.color.text_secondary)
+            binding.btnDeletar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.bg_secondary)
+            binding.btnDeletar.iconTint = ContextCompat.getColorStateList(this, R.color.text_secondary)
         }
     }
 
