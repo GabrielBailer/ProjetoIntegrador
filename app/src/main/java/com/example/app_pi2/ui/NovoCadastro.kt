@@ -4,12 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback // Import necessário para o gesto de voltar
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app_pi2.databinding.ActivityCriarContaBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.firestore.FirebaseFirestore
+import com.example.app_pi2.utils.InteracoesPadrao
 
 class NovoCadastro : AppCompatActivity() {
 
@@ -81,7 +82,14 @@ class NovoCadastro : AppCompatActivity() {
                     .document(uid)
                     .set(usuario)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Usuário cadastrado com sucesso!", Toast.LENGTH_SHORT).show()
+                        criarInteracoesPadrao(uid)
+
+                        Toast.makeText(
+                            this,
+                            "Usuário cadastrado com sucesso!",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
                         startActivity(Intent(this, Home::class.java))
                         finish()
                     }
@@ -111,5 +119,27 @@ class NovoCadastro : AppCompatActivity() {
         binding.etNumeroContato.text.clear()
         binding.etEmail.text.clear()
         binding.etSenha.text.clear()
+    }
+
+    private fun criarInteracoesPadrao(uid: String) {
+
+        val ref = db.collection("usuarios")
+            .document(uid)
+            .collection("interacoes")
+
+        ref.get().addOnSuccessListener { snapshot ->
+
+            if (!snapshot.isEmpty) {
+                return@addOnSuccessListener
+            }
+
+            val interacoes = InteracoesPadrao.criarLista()
+
+            interacoes.forEach { interacao ->
+
+                ref.document(interacao.id)
+                    .set(interacao)
+            }
+        }
     }
 }
