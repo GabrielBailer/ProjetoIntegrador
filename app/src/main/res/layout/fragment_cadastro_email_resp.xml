@@ -5,41 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/bg_primary"
+    android:fitsSystemWindows="true"
     android:padding="20dp">
 
     <EditText
         android:id="@+id/edit_email_alternativo"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_edittext"
         android:hint="Digite o e-mail do Responsável"
         android:inputType="textEmailAddress"
-        android:minWidth="700dp"
+        android:padding="12dp"
         android:textColor="@color/text_primary"
         android:textColorHint="@color/text_secondary"
-        android:padding="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.208" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_enviar_codigo"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:backgroundTint="@color/on_primary"
-        android:minWidth="700dp"
         android:text="Enviar código"
         android:textColor="@color/primary"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edit_email_alternativo" />
 
