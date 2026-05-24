@@ -22,10 +22,9 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "app_database"
                 )
-                    // fallbackToDestructiveMigration irá recriar o banco de dados se a versão mudar.
-                    // Isso é útil durante o desenvolvimento, mas para um aplicativo em produção,
-                    // você precisaria implementar uma migração real.
-                    .fallbackToDestructiveMigration()
+                    // Atualizado para a versão não depreciada. 
+                    // true indica que o Room pode apagar todas as tabelas se não encontrar uma migração.
+                    .fallbackToDestructiveMigration(true)
                     .build()
                 INSTANCE = instance
                 instance
