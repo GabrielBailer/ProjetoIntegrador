@@ -12,28 +12,28 @@ object InteracoesPadrao {
             Interacao(
                 id = UUID.randomUUID().toString(),
                 titulo = "Olá",
-                imagem = "int_black_ola",
+                imagem = "int_black_feliz",
                 cor = "#CFE8FF"
             ),
 
             Interacao(
                 id = UUID.randomUUID().toString(),
                 titulo = "Quero água",
-                imagem = "int_black_agua",
+                imagem = "int_black_garrafa_agua",
                 cor = "#D4F5DD"
             ),
 
             Interacao(
                 id = UUID.randomUUID().toString(),
                 titulo = "Estou com fome",
-                imagem = "int_black_fome",
+                imagem = "int_black_hamburger",
                 cor = "#FFF3C4"
             ),
 
             Interacao(
                 id = UUID.randomUUID().toString(),
                 titulo = "Obrigado",
-                imagem = "int_black_obrigado",
+                imagem = "int_black_chorando_rir",
                 cor = "#E3D4FF"
             )
         )
