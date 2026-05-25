@@ -49,8 +49,6 @@ class Home : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // --- CORREÇÃO DE TELA AQUI ---
-        // Salvamos o padding inicial (do XML) para ele não virar uma "bola de neve"
         val initialPaddingTop = binding.root.paddingTop
         val initialPaddingBottom = binding.root.paddingBottom
         val initialPaddingLeft = binding.root.paddingLeft
@@ -59,7 +57,6 @@ class Home : AppCompatActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 
-            // Agora ele sempre soma com o valor "congelado" original, sem acumular
             view.setPadding(
                 initialPaddingLeft,
                 initialPaddingTop + systemBars.top,
@@ -69,7 +66,6 @@ class Home : AppCompatActivity() {
 
             insets
         }
-        // -----------------------------
 
         if (userId.isNullOrBlank()) {
             startActivity(Intent(this, TelaLogin::class.java))
@@ -288,52 +284,47 @@ class Home : AppCompatActivity() {
         }
     }
 
-    private fun aplicarModoResponsavel() {
+    // --- CORREÇÃO AQUI: Centralizamos toda a lógica visual nesta função ---
+    private fun atualizarEstadoBotaoFalar() {
+        val modoResponsavelAtivo = ModoResponsavelManager.isAtivo(this)
 
-        val ativo = ModoResponsavelManager.isAtivo(this)
-
-        binding.btnEditar.isEnabled = ativo
-        binding.btnDeletar.isEnabled = ativo
-
-        val alpha = if (ativo) 1f else 0.4f
-
+        // Ajusta a transparência (bloqueio visual) com base no modo responsável
+        val alpha = if (modoResponsavelAtivo) 1f else 0.4f
         binding.btnEditar.alpha = alpha
         binding.btnDeletar.alpha = alpha
-    }
-
-    private fun atualizarEstadoBotaoFalar() {
 
         if (interacaoSelecionada != null) {
-
-            binding.btnFalar.backgroundTintList =
-                ContextCompat.getColorStateList(this, R.color.primary)
-
-            binding.btnFalar.setTextColor(
-                ContextCompat.getColor(this, R.color.on_primary)
-            )
-
+            // O botão Falar fica ativo independente do modo responsável, pois é a função principal
+            binding.btnFalar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.primary)
+            binding.btnFalar.setTextColor(ContextCompat.getColor(this, R.color.on_primary))
             binding.btnFalar.iconTint = ContextCompat.getColorStateList(this, R.color.on_primary)
-
             binding.btnFalar.text = "Falar"
 
+            // Editar e Deletar só ganham cor se o modo responsável estiver ativado
+            if (modoResponsavelAtivo) {
+                binding.btnEditar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.on_primary)
+                binding.btnEditar.iconTint = ContextCompat.getColorStateList(this, R.color.primary)
 
-            binding.btnEditar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.on_primary)
-            binding.btnEditar.iconTint = ContextCompat.getColorStateList(this, R.color.primary)
-            binding.btnDeletar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.on_primary)
-            binding.btnDeletar.iconTint = ContextCompat.getColorStateList(this, R.color.primary)
+                binding.btnDeletar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.on_primary)
+                binding.btnDeletar.iconTint = ContextCompat.getColorStateList(this, R.color.primary)
+            } else {
+                binding.btnEditar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.bg_secondary)
+                binding.btnEditar.iconTint = ContextCompat.getColorStateList(this, R.color.text_secondary)
+
+                binding.btnDeletar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.bg_secondary)
+                binding.btnDeletar.iconTint = ContextCompat.getColorStateList(this, R.color.text_secondary)
+            }
 
         } else {
-
+            // Estado neutro: nada selecionado
             binding.btnFalar.setTextColor(ContextCompat.getColor(this, R.color.primary))
-
-            binding.btnFalar.backgroundTintList =
-                ContextCompat.getColorStateList(this, R.color.on_primary)
+            binding.btnFalar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.on_primary)
             binding.btnFalar.text = "Criar interação"
-
             binding.btnFalar.iconTint = ContextCompat.getColorStateList(this, R.color.primary)
 
             binding.btnEditar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.bg_secondary)
             binding.btnEditar.iconTint = ContextCompat.getColorStateList(this, R.color.text_secondary)
+
             binding.btnDeletar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.bg_secondary)
             binding.btnDeletar.iconTint = ContextCompat.getColorStateList(this, R.color.text_secondary)
         }
@@ -418,7 +409,8 @@ class Home : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        aplicarModoResponsavel()
+        // Garante que a checagem das cores ocorra toda vez que você volta do popup de configurações!
+        atualizarEstadoBotaoFalar()
 
         if (listaOriginal.isNotEmpty()) {
             adapter.submitList(listaOriginal.toList())
