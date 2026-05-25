@@ -6,11 +6,9 @@
             <solid android:color="@android:color/transparent"/>
             <stroke
                 android:width="3dp"
-                android:color="#000000"/>
-        </shape>
+                android:color="@color/cor_borda_selecao"/> </shape>
     </item>
 
-    <!-- Não selecionado -->
     <item>
         <shape android:shape="oval">
             <solid android:color="@android:color/transparent"/>

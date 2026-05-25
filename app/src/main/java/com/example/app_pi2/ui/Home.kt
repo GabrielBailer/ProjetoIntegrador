@@ -49,28 +49,33 @@ class Home : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // --- CORREÇÃO DE TELA AQUI ---
+        // Salvamos o padding inicial (do XML) para ele não virar uma "bola de neve"
+        val initialPaddingTop = binding.root.paddingTop
+        val initialPaddingBottom = binding.root.paddingBottom
+        val initialPaddingLeft = binding.root.paddingLeft
+        val initialPaddingRight = binding.root.paddingRight
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 
-            val paddingTop = binding.root.paddingTop
-            val paddingBottom = binding.root.paddingBottom
-
+            // Agora ele sempre soma com o valor "congelado" original, sem acumular
             view.setPadding(
-                view.paddingLeft,
-                paddingTop + systemBars.top,
-                view.paddingRight,
-                paddingBottom + systemBars.bottom
+                initialPaddingLeft,
+                initialPaddingTop + systemBars.top,
+                initialPaddingRight,
+                initialPaddingBottom + systemBars.bottom
             )
 
             insets
         }
+        // -----------------------------
 
         if (userId.isNullOrBlank()) {
             startActivity(Intent(this, TelaLogin::class.java))
             finish()
             return
         }
-
 
         dbLocal = AppDatabase.getInstance(applicationContext)
         firestore = FirebaseFirestore.getInstance()
@@ -205,37 +210,31 @@ class Home : AppCompatActivity() {
 
         binding.btnFalar.setOnClickListener {
 
-            when (interacaoSelecionada) {
-                null if ModoResponsavelManager.isAtivo(this) -> {
-
+            if (interacaoSelecionada == null) {
+                if (ModoResponsavelManager.isAtivo(this)) {
                     startActivity(Intent(this, NovaInteracao::class.java))
-
-                }
-                null -> {
-
+                } else {
                     tts.speak(
                         "Ative modo de responsável para criar interações",
                         TextToSpeech.QUEUE_FLUSH,
                         null,
                         null
                     )
-
                 }
-                else -> {
+            } else {
 
-                    val texto = interacaoSelecionada?.titulo?.trim().orEmpty()
+                val texto = interacaoSelecionada?.titulo?.trim().orEmpty()
 
-                    tts.speak(
-                        texto,
-                        TextToSpeech.QUEUE_FLUSH,
-                        null,
-                        null
-                    )
+                tts.speak(
+                    texto,
+                    TextToSpeech.QUEUE_FLUSH,
+                    null,
+                    null
+                )
 
-                    interacaoSelecionada = null
+                interacaoSelecionada = null
 
-                    atualizarEstadoBotaoFalar()
-                }
+                atualizarEstadoBotaoFalar()
             }
         }
 

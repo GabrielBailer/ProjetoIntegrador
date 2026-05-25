@@ -16,4 +16,7 @@
     <color name="primary">#A4D8FF</color>
     <color name="on_primary">#35393C</color>
 
+    <!-- BORDAS -->
+    <color name="cor_borda_selecao">#000000</color>
+
 </resources>
