@@ -12,7 +12,6 @@ import com.example.app_pi2.data.model.Interacao
 import com.example.app_pi2.databinding.FragmentInteracaoDialogBinding
 import com.example.app_pi2.utils.AuthManager
 import com.example.app_pi2.utils.InteracaoCores
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
