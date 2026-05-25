@@ -20,12 +20,6 @@
             android:textSize="20sp"
             android:textStyle="bold"/>
 
-        <ImageView
-            android:id="@+id/btnFechar"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"/>
     </RelativeLayout>
 
     <!-- TABS -->

@@ -10,7 +10,7 @@
 
     <EditText
         android:id="@+id/edit_senha_interna"
-        android:layout_width="408dp"
+        android:layout_width="match_parent"
         android:layout_height="49dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/bg_edittext"
@@ -18,26 +18,26 @@
         android:inputType="textPassword"
         android:textColor="@color/text_primary"
         android:textColorHint="@color/text_secondary"
-        app:layout_constraintBottom_toTopOf="@+id/btn_confirmar_senha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_confirmar_senha"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:backgroundTint="@color/primary"
         android:text="Confirmar"
         android:textColor="@color/on_primary"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_senha_interna" />
 
     <Button
         android:id="@+id/btn_esqueci_senha"
@@ -47,6 +47,8 @@
         android:backgroundTint="@color/bg_secondary"
         android:text="Esqueci a senha"
         android:textColor="@color/text_primary"
+        android:textSize="12sp"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/btn_confirmar_senha"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

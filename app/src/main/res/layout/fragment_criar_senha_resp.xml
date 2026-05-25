@@ -5,16 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/bg_primary"
+    android:fitsSystemWindows="true"
     android:padding="20dp">
 
     <EditText
         android:id="@+id/edit_nova_senha"
-        android:layout_width="match_parent"
-        android:minWidth="700dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Senha"
         android:background="@drawable/bg_edittext"
-        android:padding="5dp"
+        android:padding="12dp"
         android:textColorHint="@color/text_secondary"
         android:textColor="@color/text_primary"
         android:inputType="textPassword"
@@ -24,12 +24,11 @@
 
     <EditText
         android:id="@+id/edit_confirmar_senha"
-        android:layout_width="match_parent"
-        android:minWidth="700dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Confirmar senha"
         android:background="@drawable/bg_edittext"
-        android:padding="5dp"
+        android:padding="12dp"
         android:textColorHint="@color/text_secondary"
         android:textColor="@color/text_primary"
         android:inputType="textPassword"
@@ -40,13 +39,15 @@
 
     <Button
         android:id="@+id/btn_salvar_senha"
-        android:layout_width="match_parent"
-        android:minWidth="700dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         android:text="Salvar senha"
         android:backgroundTint="@color/primary"
         android:textColor="@color/on_primary"
+        android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/edit_confirmar_senha"
         app:layout_constraintStart_toStartOf="parent"

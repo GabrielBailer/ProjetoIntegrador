@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_primary"
+    android:fitsSystemWindows="true"
     android:padding="16dp">
 
     <TextView
@@ -43,7 +44,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="Criar senha"
+        android:hint="Criar Senha"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="12dp"
@@ -89,6 +90,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/on_primary"
             android:textColor="@color/primary"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:text="Limpar" />
 
@@ -100,6 +102,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/primary"
             android:textColor="@color/on_primary"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:text="Salvar" />
     </LinearLayout>
@@ -109,7 +112,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="Nome do usuário"
+        android:hint="Nome do Usuário"
         android:minHeight="48dp"
         android:padding="12dp"
         android:textColor="@color/text_primary"

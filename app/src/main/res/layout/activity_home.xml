@@ -20,12 +20,9 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/logo_content_description"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/logo_fc" />
 
     <ImageButton
@@ -37,10 +34,9 @@
         android:padding="4dp"
         android:scaleType="centerInside"
         android:src="?attr/ic_perfil"
-        app:layout_constraintBottom_toTopOf="@+id/dividerTop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.402" />
+        app:layout_constraintTop_toTopOf="@+id/ivLogo2"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLogo2"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
         android:id="@+id/btnConfiguracoes"
@@ -51,69 +47,24 @@
         android:padding="4dp"
         android:scaleType="centerInside"
         android:src="?attr/ic_config"
-        app:layout_constraintBottom_toTopOf="@+id/dividerTop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.402" />
-
+        app:layout_constraintTop_toTopOf="@+id/ivLogo2"
+        app:layout_constraintBottom_toBottomOf="@+id/ivLogo2"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <View
         android:id="@+id/dividerTop"
         android:layout_width="0dp"
         android:layout_height="2dp"
+        android:layout_marginTop="4dp"
         android:background="@color/surface_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogo2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.14" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:clipToPadding="false"
-        android:paddingBottom="8dp"
-
-        app:layout_constraintBottom_toTopOf="@+id/dividerBotton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dividerTop"
-        app:layout_constraintVertical_bias="0.0"
-        tools:listitem="@layout/item_interacao" />
-
-    <View
-        android:id="@+id/dividerBotton"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginBottom="12dp"
-        android:background="@color/surface_color"
-        app:layout_constraintBottom_toTopOf="@+id/searchView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:background="@drawable/bg_busca"
-        android:iconifiedByDefault="false"
-        android:queryHint="Buscar interação."
-        app:layout_constraintBottom_toTopOf="@+id/btnFalar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.979" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnFalar"
-        android:layout_width="217dp"
+        android:layout_width="0dp"
         android:layout_height="66dp"
-        android:layout_weight="1"
         android:text="Falar"
         android:textAllCaps="false"
         android:textColor="@color/on_primary"
@@ -126,50 +77,75 @@
         app:iconGravity="textStart"
         app:iconPadding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnEditar"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnDeletar"
-        android:layout_width="64dp"
-        android:layout_height="66dp"
-        android:layout_marginStart="4dp"
-        android:contentDescription="Editar"
-        app:backgroundTint="@color/bg_secondary"
-        app:cornerRadius="16dp"
-        app:icon="@drawable/ic_black_apagar"
-        app:iconTint="@color/text_secondary"
-        app:layout_constraintBottom_toBottomOf="@+id/btnEditar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnEditar"
-        app:layout_constraintTop_toTopOf="@+id/btnEditar"
-        app:layout_constraintVertical_bias="0.0"
-        app:strokeColor="@color/surface_color"
-        app:strokeWidth="1dp" />
+        app:layout_constraintEnd_toStartOf="@+id/btnEditar"
+        app:layout_constraintHorizontal_chainStyle="spread_inside" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnEditar"
         android:layout_width="64dp"
         android:layout_height="66dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="8dp"
         android:contentDescription="Editar"
         app:backgroundTint="@color/bg_secondary"
         app:cornerRadius="16dp"
         app:icon="@drawable/ic_black_editar"
         app:iconTint="@color/text_secondary"
-        app:layout_constraintBottom_toBottomOf="@+id/btnFalar"
-        app:layout_constraintEnd_toStartOf="@+id/btnDeletar"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnFalar"
-        app:layout_constraintTop_toTopOf="@+id/btnFalar"
-        app:layout_constraintVertical_bias="0.0"
         app:strokeColor="@color/surface_color"
-        app:strokeWidth="1dp" />
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnFalar"
+        app:layout_constraintEnd_toStartOf="@+id/btnDeletar" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeletar"
+        android:layout_width="64dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="8dp"
+        android:contentDescription="Apagar"
+        app:backgroundTint="@color/bg_secondary"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/ic_black_apagar"
+        app:iconTint="@color/text_secondary"
+        app:strokeColor="@color/surface_color"
+        app:strokeWidth="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnEditar"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_busca"
+        android:iconifiedByDefault="false"
+        android:queryHint="Buscar interação."
+        app:layout_constraintBottom_toTopOf="@+id/btnFalar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <View
+        android:id="@+id/dividerBotton"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginBottom="12dp"
+        android:background="@color/surface_color"
+        app:layout_constraintBottom_toTopOf="@+id/searchView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@+id/dividerTop"
+        app:layout_constraintBottom_toTopOf="@+id/dividerBotton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_interacao" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
