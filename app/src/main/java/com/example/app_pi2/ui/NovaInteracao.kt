@@ -87,7 +87,7 @@ class NovaInteracao : AppCompatActivity() {
             else -> "#FFFFFF"
         }
 
-        val imagem = (nomeImagemSelecionada ?: "int_black_baloes").substringBeforeLast(".")
+        val imagem = (nomeImagemSelecionada ?: "int_black_feliz").substringBeforeLast(".")
         val id = UUID.randomUUID().toString()
 
         val interacao = Interacao(

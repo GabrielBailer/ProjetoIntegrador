@@ -12,7 +12,8 @@ import com.example.app_pi2.data.model.Interacao
 import com.example.app_pi2.databinding.ItemInteracaoBinding
 
 class InteracaoAdapter(
-    private val onItemClick: (Interacao) -> Unit
+    private val onItemClick: (Interacao) -> Unit,
+    private val onLongClick: (Interacao) -> Unit
 ) : ListAdapter<Interacao, InteracaoAdapter.InteracaoViewHolder>(DiffCallback()) {
 
     init {
@@ -52,6 +53,11 @@ class InteracaoAdapter(
 
         holder.binding.root.setOnClickListener {
             onItemClick(interacao)
+        }
+
+        holder.binding.root.setOnLongClickListener {
+            onLongClick(interacao)
+            true
         }
 
         val imagem = interacao.imagem

@@ -32,7 +32,6 @@ import java.util.Locale
 import androidx.core.content.ContextCompat
 
 class Home : AppCompatActivity() {
-
     private lateinit var binding: ActivityHomeBinding
     private lateinit var dbLocal: AppDatabase
     private lateinit var firestore: FirebaseFirestore
@@ -81,6 +80,14 @@ class Home : AppCompatActivity() {
         configurarBusca()
         configurarBotoes()
 
+        supportFragmentManager.setFragmentResultListener(
+            "visual-update",
+            this
+        ) { _, _ ->
+
+            atualizarEstadoBotaoFalar()
+        }
+
         atualizarEstadoBotaoFalar()
 
         carregarInteracoesLocais()
@@ -89,7 +96,9 @@ class Home : AppCompatActivity() {
 
     private fun configurarRecyclerView() {
 
-        adapter = InteracaoAdapter { interacao ->
+        adapter = InteracaoAdapter (
+
+            onItemClick = { interacao ->
 
             val falaAutomatica =
                 FalaAutomaticaManager.isAtivo(this)
@@ -111,7 +120,21 @@ class Home : AppCompatActivity() {
 
                 atualizarEstadoBotaoFalar()
             }
-        }
+            },
+
+            onLongClick = { interacao ->
+
+                if (!ModoResponsavelManager.isAtivo(this)) {
+                    return@InteracaoAdapter
+                }
+
+                InteracaoDialogFragment
+                    .newInstance(interacao.id)
+                    .show(supportFragmentManager, "editar")
+            }
+
+
+        )
 
         val spanCount = if (resources.getBoolean(R.bool.isTablet)) 3 else 2
 
@@ -287,11 +310,23 @@ class Home : AppCompatActivity() {
     // --- CORREÇÃO AQUI: Centralizamos toda a lógica visual nesta função ---
     private fun atualizarEstadoBotaoFalar() {
         val modoResponsavelAtivo = ModoResponsavelManager.isAtivo(this)
+        val modoFala = FalaAutomaticaManager.isAtivo(this)
 
-        // Ajusta a transparência (bloqueio visual) com base no modo responsável
-        val alpha = if (modoResponsavelAtivo) 1f else 0.4f
-        binding.btnEditar.alpha = alpha
-        binding.btnDeletar.alpha = alpha
+        val visibilidade = if (modoResponsavelAtivo) {
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+
+        val visibilidadeFala = if(!modoFala){
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
+
+        binding.btnEditar.visibility = visibilidade
+        binding.btnDeletar.visibility = visibilidadeFala
+        binding.btnFalar.visibility = visibilidadeFala
 
         if (interacaoSelecionada != null) {
             // O botão Falar fica ativo independente do modo responsável, pois é a função principal
@@ -377,7 +412,6 @@ class Home : AppCompatActivity() {
 
         adapter.submitList(lista.toList())
     }
-
     private fun filtrarInteracoes(texto: String?) {
 
         val resultado = if (texto.isNullOrBlank()) {

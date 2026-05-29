@@ -67,6 +67,7 @@ class ConfiguracoesDialogFragment : DialogFragment() {
                 abrirValidacaoDeSenha()
             } else {
                 ModoResponsavelManager.setAtivo(requireContext(), false)
+                notificarMudancaModoResponsavel()
                 Toast.makeText(requireContext(), "Modo Responsável desativado", Toast.LENGTH_SHORT).show()
             }
         }
@@ -79,6 +80,7 @@ class ConfiguracoesDialogFragment : DialogFragment() {
                 configurarListenerResponsavel()
 
                 ModoResponsavelManager.setAtivo(requireContext(), true)
+                notificarMudancaModoResponsavel()
                 Toast.makeText(requireContext(), "Modo Responsável ativado!", Toast.LENGTH_SHORT).show()
             }
         }
@@ -100,6 +102,8 @@ class ConfiguracoesDialogFragment : DialogFragment() {
                 isChecked
             )
 
+            notificarMudancaFalaAutomatica()
+
             binding.tvFalaAutomatica.text =
                 if (isChecked) "Ativado" else "Desativado"
         }
@@ -120,6 +124,20 @@ class ConfiguracoesDialogFragment : DialogFragment() {
     private fun abrirValidacaoDeSenha() {
         val fragmentSenha = SolicitarSenhaRespFragment()
         fragmentSenha.show(parentFragmentManager, "SolicitarSenhaResp")
+    }
+
+    private fun notificarMudancaModoResponsavel() {
+        parentFragmentManager.setFragmentResult(
+            "visual-update",
+            Bundle()
+        )
+    }
+
+    private fun notificarMudancaFalaAutomatica() {
+        parentFragmentManager.setFragmentResult(
+            "visual-update",
+            Bundle()
+        )
     }
 
     override fun onStart() {
