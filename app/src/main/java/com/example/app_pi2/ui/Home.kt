@@ -312,19 +312,17 @@ class Home : AppCompatActivity() {
         val modoResponsavelAtivo = ModoResponsavelManager.isAtivo(this)
         val modoFala = FalaAutomaticaManager.isAtivo(this)
 
-        val visibilidade = if (modoResponsavelAtivo) {
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
-
         val visibilidadeFala = if(!modoFala){
             View.VISIBLE
         } else {
             View.GONE
         }
 
-        binding.btnEditar.visibility = visibilidade
+        binding.btnEditar.visibility = if (!modoResponsavelAtivo || modoFala){
+            View.GONE
+        } else {
+            View.VISIBLE
+        }
         binding.btnDeletar.visibility = visibilidadeFala
         binding.btnFalar.visibility = visibilidadeFala
 
