@@ -30,6 +30,8 @@ import com.example.app_pi2.utils.AuthManager
 import com.example.app_pi2.utils.FalaAutomaticaManager
 import java.util.Locale
 import androidx.core.content.ContextCompat
+import com.example.app_pi2.fragments.CriarSenhaRespFragment
+import com.example.app_pi2.fragments.TipoDeFluxo
 
 class Home : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
@@ -79,6 +81,7 @@ class Home : AppCompatActivity() {
         configurarTTS()
         configurarBusca()
         configurarBotoes()
+        verificarCadastroResponsavel()
 
         supportFragmentManager.setFragmentResultListener(
             "visual-update",
@@ -446,6 +449,59 @@ class Home : AppCompatActivity() {
 
         if (listaOriginal.isNotEmpty()) {
             adapter.submitList(listaOriginal.toList())
+        }
+    }
+
+    private fun verificarCadastroResponsavel() {
+
+        val uid = userId ?: return
+
+        firestore.collection("usuarios")
+            .document(uid)
+            .get()
+            .addOnSuccessListener { doc ->
+
+                val maiorDeIdade =
+                    doc.getBoolean("maiorDeIdade") ?: false
+
+                val responsavelConfigurado =
+                    doc.getBoolean("responsavelConfigurado") ?: false
+
+                if (
+                    maiorDeIdade &&
+                    !responsavelConfigurado
+                ) {
+
+                    cadSenhaResp()
+                }
+            }
+    }
+
+    private fun cadSenhaResp() {
+
+        if (
+            supportFragmentManager.findFragmentByTag("CriarSenhaResp")
+            == null
+        ) {
+
+            val fragment =
+                CriarSenhaRespFragment()
+
+            val bundle = Bundle()
+
+            bundle.putString(
+                "flow",
+                TipoDeFluxo.CADASTRO.name
+            )
+
+            fragment.arguments = bundle
+
+            fragment.isCancelable = false
+
+            fragment.show(
+                supportFragmentManager,
+                "CriarSenhaResp"
+            )
         }
     }
 }

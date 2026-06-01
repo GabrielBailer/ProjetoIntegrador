@@ -44,7 +44,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="Criar Senha"
+        android:hint="Senha"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="12dp"
@@ -71,16 +71,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etNomeUsuario" />
 
+
+    <EditText
+        android:id="@+id/etDataNascimento"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Data de nascimento"
+        android:focusable="false"
+        android:clickable="true"
+        android:minHeight="48dp"
+        android:padding="12dp"
+        android:backgroundTint="@color/text_primary"
+        android:textColorHint="@color/text_primary"
+        app:layout_constraintTop_toBottomOf="@id/etSenha"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <LinearLayout
         android:id="@+id/buttonLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="60dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etSenha">
+        app:layout_constraintTop_toBottomOf="@+id/etDataNascimento">
 
         <Button
             android:id="@+id/btnLimpar"
@@ -89,10 +106,10 @@
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:backgroundTint="@color/on_primary"
+            android:text="Limpar"
             android:textColor="@color/primary"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:text="Limpar" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnAdd"
@@ -101,10 +118,10 @@
             android:layout_marginStart="8dp"
             android:layout_weight="1"
             android:backgroundTint="@color/primary"
+            android:text="Salvar"
             android:textColor="@color/on_primary"
             android:textSize="15sp"
-            android:textStyle="bold"
-            android:text="Salvar" />
+            android:textStyle="bold" />
     </LinearLayout>
 
     <EditText
@@ -112,7 +129,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="Nome do Usuário"
+        android:hint="Nome"
         android:minHeight="48dp"
         android:padding="12dp"
         android:textColor="@color/text_primary"

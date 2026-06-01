@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.app_pi2.R
 import com.example.app_pi2.ui.NovaInteracao
+import com.example.app_pi2.utils.FirestoreManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.functions.FirebaseFunctions
 
@@ -53,6 +54,21 @@ class CriarSenhaRespFragment : DialogFragment() {
         return view
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        val width = (resources.displayMetrics.widthPixels * 0.90).toInt()
+
+        dialog?.window?.setLayout(
+            width,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+
+        dialog?.window?.setBackgroundDrawableResource(
+            android.R.color.transparent
+        )
+    }
+
     private fun salvarSenhaNoServidor(senha: String) {
         val uid = FirebaseAuth.getInstance().currentUser?.uid
         if (uid.isNullOrEmpty()) {
@@ -69,19 +85,37 @@ class CriarSenhaRespFragment : DialogFragment() {
             .getHttpsCallable("saveResponsiblePassword")
             .call(data)
             .addOnSuccessListener {
-                mostrarMensagem("Senha cadastrada com sucesso!")
-                abrirNovaInteracao()
-                dismiss()
+
+                val uid = FirebaseAuth.getInstance().currentUser?.uid
+
+                if (uid == null) {
+                    mostrarMensagem("Erro ao obter usuário.")
+                    return@addOnSuccessListener
+                }
+
+                FirestoreManager.db
+                    .collection("usuarios")
+                    .document(uid)
+                    .update(
+                        "responsavelConfigurado",
+                        true
+                    )
+                    .addOnSuccessListener {
+
+                        mostrarMensagem("Senha cadastrada com sucesso!")
+
+                        dismiss()
+                    }
+                    .addOnFailureListener { e ->
+
+                        mostrarMensagem(
+                            "Senha criada, mas houve erro ao atualizar o cadastro: ${e.localizedMessage}"
+                        )
+                    }
             }
             .addOnFailureListener {
                 mostrarMensagem("Erro ao salvar senha: ${it.localizedMessage}")
             }
-    }
-
-    private fun abrirNovaInteracao() {
-        val intent = Intent(requireContext(), NovaInteracao::class.java)
-        startActivity(intent)
-        requireActivity().finish()
     }
 
     private fun mostrarMensagem(msg: String) {

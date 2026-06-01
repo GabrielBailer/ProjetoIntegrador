@@ -9,8 +9,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.DialogFragment
 import com.example.app_pi2.databinding.FragmentConfirguracoesBinding
 import com.example.app_pi2.dialog.configurarAbasConfiguracao
+import com.example.app_pi2.utils.AuthManager
 import com.example.app_pi2.utils.ModoResponsavelManager
 import com.example.app_pi2.utils.FalaAutomaticaManager
+import com.example.app_pi2.utils.FirestoreManager
 import com.example.app_pi2.utils.ThemeManager
 
 class ConfiguracoesDialogFragment : DialogFragment() {
@@ -62,13 +64,27 @@ class ConfiguracoesDialogFragment : DialogFragment() {
         binding.switchResponsavel.isChecked = isResponsavelAtivo
 
         binding.switchResponsavel.setOnCheckedChangeListener { buttonView, isChecked ->
+
             if (isChecked) {
+
                 buttonView.isChecked = false
-                abrirValidacaoDeSenha()
+
+                verificarModoResponsavel()
+
             } else {
-                ModoResponsavelManager.setAtivo(requireContext(), false)
+
+                ModoResponsavelManager.setAtivo(
+                    requireContext(),
+                    false
+                )
+
                 notificarMudancaModoResponsavel()
-                Toast.makeText(requireContext(), "Modo Responsável desativado", Toast.LENGTH_SHORT).show()
+
+                Toast.makeText(
+                    requireContext(),
+                    "Modo Responsável desativado",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
@@ -126,6 +142,20 @@ class ConfiguracoesDialogFragment : DialogFragment() {
         fragmentSenha.show(parentFragmentManager, "SolicitarSenhaResp")
     }
 
+    private fun abrirCadastroResponsavel() {
+        val fragment = CadastroEmailRespFragment()
+
+        val bundle = Bundle()
+        bundle.putString(
+            "flow",
+            TipoDeFluxo.CADASTRO.name
+        )
+
+        fragment.arguments = bundle
+
+        fragment.show(parentFragmentManager, "CadastroEmailResp")
+    }
+
     private fun notificarMudancaModoResponsavel() {
         parentFragmentManager.setFragmentResult(
             "visual-update",
@@ -138,6 +168,32 @@ class ConfiguracoesDialogFragment : DialogFragment() {
             "visual-update",
             Bundle()
         )
+    }
+
+    private fun verificarModoResponsavel() {
+
+        val uid = AuthManager.getUserId() ?: return
+
+        FirestoreManager.db
+            .collection("usuarios")
+            .document(uid)
+            .get()
+            .addOnSuccessListener { documento ->
+
+                val configurado =
+                    documento.getBoolean("responsavelConfigurado")
+                        ?: false
+
+                if (configurado) {
+
+                    abrirValidacaoDeSenha()
+
+                } else {
+
+                    abrirCadastroResponsavel()
+
+                }
+            }
     }
 
     override fun onStart() {
