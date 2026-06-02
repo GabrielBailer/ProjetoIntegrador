@@ -327,6 +327,11 @@ class Home : AppCompatActivity() {
             View.VISIBLE
         }
         binding.btnDeletar.visibility = visibilidadeFala
+        binding.btnFalar.visibility = if(modoResponsavelAtivo){
+            View.VISIBLE
+        } else {
+            View.GONE
+        }
 
         if (interacaoSelecionada != null) {
             // O botão Falar fica ativo independente do modo responsável, pois é a função principal
