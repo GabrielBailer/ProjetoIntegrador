@@ -292,20 +292,7 @@ class Home : AppCompatActivity() {
         }
 
         binding.btnDeletar.setOnClickListener {
-
-            if (!ModoResponsavelManager.isAtivo(this)) {
-
-                Toast.makeText(
-                    this,
-                    "Ative o modo responsável",
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                return@setOnClickListener
-            }
-
             interacaoSelecionada = null
-
             atualizarEstadoBotaoFalar()
         }
     }
@@ -315,32 +302,41 @@ class Home : AppCompatActivity() {
         val modoResponsavelAtivo = ModoResponsavelManager.isAtivo(this)
         val modoFala = FalaAutomaticaManager.isAtivo(this)
 
-        val visibilidadeFala = if(!modoFala){
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
+        val visibilidadeOn = View.VISIBLE
+        val visibilidadeOff = View.GONE
 
-        binding.btnEditar.visibility = if (!modoResponsavelAtivo || modoFala){
-            View.GONE
+        if(modoResponsavelAtivo && modoFala){
+            binding.btnFalar.visibility = visibilidadeOn
+            binding.btnEditar.visibility = visibilidadeOff
+            binding.btnDeletar.visibility = visibilidadeOff
         } else {
-            View.VISIBLE
-        }
-        binding.btnDeletar.visibility = visibilidadeFala
-        binding.btnFalar.visibility = if(modoResponsavelAtivo){
-            View.VISIBLE
-        } else {
-            View.GONE
+            if(modoResponsavelAtivo && !modoFala){
+                binding.btnFalar.visibility = visibilidadeOn
+                binding.btnEditar.visibility = visibilidadeOn
+                binding.btnDeletar.visibility = visibilidadeOn
+            } else {
+                if(!modoResponsavelAtivo && modoFala){
+                    binding.btnFalar.visibility = visibilidadeOff
+                    binding.btnEditar.visibility = visibilidadeOff
+                    binding.btnDeletar.visibility = visibilidadeOff
+                }else{
+                    binding.btnFalar.visibility = visibilidadeOn
+                    binding.btnEditar.visibility = visibilidadeOff
+                    binding.btnDeletar.visibility = visibilidadeOn
+                    binding.btnFalar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.primary)
+                    binding.btnFalar.setTextColor(ContextCompat.getColor(this, R.color.on_primary))
+                    binding.btnFalar.iconTint = ContextCompat.getColorStateList(this, R.color.on_primary)
+                    binding.btnFalar.text = "Falar"
+                }
+            }
         }
 
         if (interacaoSelecionada != null) {
-            // O botão Falar fica ativo independente do modo responsável, pois é a função principal
             binding.btnFalar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.primary)
             binding.btnFalar.setTextColor(ContextCompat.getColor(this, R.color.on_primary))
             binding.btnFalar.iconTint = ContextCompat.getColorStateList(this, R.color.on_primary)
             binding.btnFalar.text = "Falar"
 
-            // Editar e Deletar só ganham cor se o modo responsável estiver ativado
             if (modoResponsavelAtivo) {
                 binding.btnEditar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.on_primary)
                 binding.btnEditar.iconTint = ContextCompat.getColorStateList(this, R.color.primary)
@@ -351,22 +347,34 @@ class Home : AppCompatActivity() {
                 binding.btnEditar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.bg_secondary)
                 binding.btnEditar.iconTint = ContextCompat.getColorStateList(this, R.color.text_secondary)
 
-                binding.btnDeletar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.bg_secondary)
-                binding.btnDeletar.iconTint = ContextCompat.getColorStateList(this, R.color.text_secondary)
+                binding.btnDeletar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.on_primary)
+                binding.btnDeletar.iconTint = ContextCompat.getColorStateList(this, R.color.primary)
             }
 
         } else {
             // Estado neutro: nada selecionado
-            binding.btnFalar.setTextColor(ContextCompat.getColor(this, R.color.primary))
-            binding.btnFalar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.on_primary)
-            binding.btnFalar.text = "Criar interação"
-            binding.btnFalar.iconTint = ContextCompat.getColorStateList(this, R.color.primary)
+            if (modoResponsavelAtivo) {
+                binding.btnFalar.setTextColor(ContextCompat.getColor(this, R.color.primary))
+                binding.btnFalar.backgroundTintList =
+                    ContextCompat.getColorStateList(this, R.color.on_primary)
+                binding.btnFalar.text = "Criar interação"
+                binding.btnFalar.iconTint = ContextCompat.getColorStateList(this, R.color.primary)
 
-            binding.btnEditar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.bg_secondary)
-            binding.btnEditar.iconTint = ContextCompat.getColorStateList(this, R.color.text_secondary)
+                binding.btnEditar.backgroundTintList =
+                    ContextCompat.getColorStateList(this, R.color.bg_secondary)
+                binding.btnEditar.iconTint =
+                    ContextCompat.getColorStateList(this, R.color.text_secondary)
 
-            binding.btnDeletar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.bg_secondary)
-            binding.btnDeletar.iconTint = ContextCompat.getColorStateList(this, R.color.text_secondary)
+                binding.btnDeletar.backgroundTintList =
+                    ContextCompat.getColorStateList(this, R.color.bg_secondary)
+                binding.btnDeletar.iconTint =
+                    ContextCompat.getColorStateList(this, R.color.text_secondary)
+            } else {
+                binding.btnDeletar.backgroundTintList =
+                    ContextCompat.getColorStateList(this, R.color.bg_secondary)
+                binding.btnDeletar.iconTint =
+                    ContextCompat.getColorStateList(this, R.color.text_secondary)
+            }
         }
     }
 
