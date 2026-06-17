@@ -8,8 +8,6 @@ pluginManagement {
 
 plugins {
     id("com.autonomousapps.build-health") version "3.7.0"
-
-    // MUITO IMPORTANTE: carregar os plugins que você usa no projeto
     id("com.android.application") version "8.13.2" apply false
     id("org.jetbrains.kotlin.android") version "2.3.20" apply false
 }

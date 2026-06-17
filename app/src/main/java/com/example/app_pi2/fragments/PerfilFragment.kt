@@ -19,7 +19,6 @@ class PerfilDialogFragment : DialogFragment() {
     private var _binding: FragmentPerfilBinding? = null
     private val binding get() = _binding!!
 
-
     private val db = FirestoreManager.db
 
     private var modoEdicao = false

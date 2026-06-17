@@ -37,7 +37,7 @@ class ConfiguracoesDialogFragment : DialogFragment() {
     }
 
     private fun configurarSwitches() {
-        // Switch Modo Escuro
+
         val isDarkMode = ThemeManager.isModoEscuro(requireContext())
 
         binding.switchModoEscuro.isChecked = isDarkMode
@@ -59,7 +59,6 @@ class ConfiguracoesDialogFragment : DialogFragment() {
             )
         }
 
-        // Switch Modo Responsável
         val isResponsavelAtivo = ModoResponsavelManager.isAtivo(requireContext())
         binding.switchResponsavel.isChecked = isResponsavelAtivo
 
@@ -101,7 +100,6 @@ class ConfiguracoesDialogFragment : DialogFragment() {
             }
         }
 
-        // --- CORREÇÃO: Switch Fala Automática (trocado de "Altomatica" para "Automatica") ---
         val falaAutomaticaAtiva =
             FalaAutomaticaManager.isAtivo(requireContext())
 

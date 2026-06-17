@@ -26,7 +26,6 @@ class CadastroEmailRespFragment : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ✅ Forma moderna (sem deprecated)
         tipo = try {
             TipoDeFluxo.valueOf(arguments?.getString("flow") ?: "CADASTRO")
         } catch (e: Exception) {

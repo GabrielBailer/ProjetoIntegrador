@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- FUNDOS -->
     <color name="bg_primary">#0B0B0B</color>
     <color name="bg_secondary">#161616</color>
     <color name="surface_color">#2A2A2A</color>
 
-    <!-- TEXTOS -->
     <color name="text_primary">#FFFFFF</color>
     <color name="text_secondary">#B0B0B0</color>
 
     <color name="corBusca">#9F9F9F</color>
     <color name="corBuscaBorda">#565656</color>
 
-    <!-- CORES PRINCIPAIS -->
     <color name="primary">#EE005A</color>
     <color name="on_primary">#012641</color>
 
-    <!-- BORDAS -->
     <color name="cor_borda_selecao">#2A2A2A</color>
 
 </resources>

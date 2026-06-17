@@ -10,7 +10,6 @@
         </shape>
     </item>
 
-    <!-- Não selecionado -->
     <item>
         <shape android:shape="oval">
             <solid android:color="@android:color/transparent"/>

@@ -36,7 +36,6 @@ class NovoCadastro : AppCompatActivity() {
         binding.btnAdd.setOnClickListener { addUsuario() }
         binding.btnLimpar.setOnClickListener { limparCampos() }
 
-        // --- Intercepta o gesto de "Voltar" do celular para ir à Tela de Login ---
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 startActivity(Intent(this@NovoCadastro, TelaLogin::class.java))

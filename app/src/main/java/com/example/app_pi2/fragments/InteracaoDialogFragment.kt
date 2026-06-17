@@ -21,10 +21,8 @@ class InteracaoDialogFragment : DialogFragment() {
 
     private var _binding: FragmentInteracaoDialogBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var firestore: FirebaseFirestore
     private lateinit var dbLocal: AppDatabase
-
     private var interacaoId: String? = null
     private var interacao: Interacao? = null
     private var nomeImagemSelecionada: String? = null

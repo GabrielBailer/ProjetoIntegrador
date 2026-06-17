@@ -22,8 +22,6 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "app_database"
                 )
-                    // Atualizado para a versão não depreciada. 
-                    // true indica que o Room pode apagar todas as tabelas se não encontrar uma migração.
                     .fallbackToDestructiveMigration(true)
                     .build()
                 INSTANCE = instance

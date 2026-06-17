@@ -71,7 +71,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etNomeUsuario" />
 
-
     <EditText
         android:id="@+id/etDataNascimento"
         android:layout_width="0dp"

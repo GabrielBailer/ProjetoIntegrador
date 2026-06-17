@@ -84,6 +84,7 @@
                 android:paddingStart="12dp"
                 android:paddingTop="14dp"
                 android:paddingBottom="14dp"
+                android:maxLength="40"
                 android:textColor="@color/text_primary"
                 android:textColorHint="@color/text_secondary"
                 android:textSize="15sp" />

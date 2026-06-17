@@ -87,7 +87,6 @@ class Home : AppCompatActivity() {
             "visual-update",
             this
         ) { _, _ ->
-
             atualizarEstadoBotaoFalar()
         }
 
@@ -103,26 +102,24 @@ class Home : AppCompatActivity() {
 
             onItemClick = { interacao ->
 
-            val falaAutomatica =
-                FalaAutomaticaManager.isAtivo(this)
+                val falaAutomatica = FalaAutomaticaManager.isAtivo(this)
 
-            if (falaAutomatica) {
+                if (falaAutomatica) {
+                    val texto = interacao.titulo.trim()
+                    tts.speak(texto, TextToSpeech.QUEUE_FLUSH, null, null)
 
-                val texto = interacao.titulo.trim()
+                } else {
+                    if (interacaoSelecionada?.id == interacao.id) {
+                        interacaoSelecionada = null
+                        adapter.idSelecionado = null
+                    } else {
+                        interacaoSelecionada = interacao
+                        adapter.idSelecionado = interacao.id
+                    }
 
-                tts.speak(
-                    texto,
-                    TextToSpeech.QUEUE_FLUSH,
-                    null,
-                    null
-                )
-
-            } else {
-
-                interacaoSelecionada = interacao
-
-                atualizarEstadoBotaoFalar()
-            }
+                    adapter.notifyDataSetChanged() // Atualiza a tela para mostrar a borda
+                    atualizarEstadoBotaoFalar()
+                }
             },
 
             onLongClick = { interacao ->
@@ -135,26 +132,19 @@ class Home : AppCompatActivity() {
                     .newInstance(interacao.id)
                     .show(supportFragmentManager, "editar")
             }
-
-
         )
 
         val spanCount = if (resources.getBoolean(R.bool.isTablet)) 3 else 2
 
-        binding.recyclerView.layoutManager =
-            GridLayoutManager(this, spanCount)
-
+        binding.recyclerView.layoutManager = GridLayoutManager(this, spanCount)
         binding.recyclerView.adapter = adapter
-
         binding.recyclerView.setHasFixedSize(true)
     }
 
     private fun configurarTTS() {
 
         tts = TextToSpeech(this) { status ->
-
             if (status == TextToSpeech.SUCCESS) {
-
                 val locale = Locale.Builder()
                     .setLanguage("pt")
                     .setRegion("BR")
@@ -162,25 +152,11 @@ class Home : AppCompatActivity() {
 
                 val resultado = tts.setLanguage(locale)
 
-                if (
-                    resultado == TextToSpeech.LANG_MISSING_DATA ||
-                    resultado == TextToSpeech.LANG_NOT_SUPPORTED
-                ) {
-
-                    Toast.makeText(
-                        this,
-                        "Idioma não suportado.",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                if (resultado == TextToSpeech.LANG_MISSING_DATA || resultado == TextToSpeech.LANG_NOT_SUPPORTED) {
+                    Toast.makeText(this, "Idioma não suportado.", Toast.LENGTH_SHORT).show()
                 }
-
             } else {
-
-                Toast.makeText(
-                    this,
-                    "Erro ao iniciar TTS.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, "Erro ao iniciar TTS.", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -194,7 +170,6 @@ class Home : AppCompatActivity() {
         searchPlate?.setBackgroundColor(Color.TRANSPARENT)
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
             override fun onQueryTextSubmit(query: String?): Boolean {
                 filtrarInteracoes(query)
                 return true
@@ -210,94 +185,63 @@ class Home : AppCompatActivity() {
     private fun configurarBotoes() {
 
         binding.btnPerfil.setOnClickListener {
-
-            if (
-                supportFragmentManager.findFragmentByTag("perfil") == null
-            ) {
-
-                PerfilDialogFragment()
-                    .show(supportFragmentManager, "perfil")
+            if (supportFragmentManager.findFragmentByTag("perfil") == null) {
+                PerfilDialogFragment().show(supportFragmentManager, "perfil")
             }
         }
 
         binding.btnConfiguracoes.setOnClickListener {
-            if (
-                supportFragmentManager.findFragmentByTag("config") == null
-            ) {
-
-                ConfiguracoesDialogFragment()
-                    .show(supportFragmentManager, "config")
+            if (supportFragmentManager.findFragmentByTag("config") == null) {
+                ConfiguracoesDialogFragment().show(supportFragmentManager, "config")
             }
         }
 
         binding.btnFalar.setOnClickListener {
-
             if (interacaoSelecionada == null) {
                 if (ModoResponsavelManager.isAtivo(this)) {
                     startActivity(Intent(this, NovaInteracao::class.java))
                 } else {
                     tts.speak(
                         "Ative modo de responsável para criar interações",
-                        TextToSpeech.QUEUE_FLUSH,
-                        null,
-                        null
+                        TextToSpeech.QUEUE_FLUSH, null, null
                     )
                 }
             } else {
-
                 val texto = interacaoSelecionada?.titulo?.trim().orEmpty()
-
-                tts.speak(
-                    texto,
-                    TextToSpeech.QUEUE_FLUSH,
-                    null,
-                    null
-                )
+                tts.speak(texto, TextToSpeech.QUEUE_FLUSH, null, null)
 
                 interacaoSelecionada = null
-
+                adapter.idSelecionado = null
+                adapter.notifyDataSetChanged()
                 atualizarEstadoBotaoFalar()
             }
         }
 
         binding.btnEditar.setOnClickListener {
-
             if (!ModoResponsavelManager.isAtivo(this)) {
-
-                Toast.makeText(
-                    this,
-                    "Ative o modo responsável",
-                    Toast.LENGTH_SHORT
-                ).show()
-
+                Toast.makeText(this, "Ative o modo responsável", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
             val interacao = interacaoSelecionada
 
             if (interacao != null) {
-
                 InteracaoDialogFragment
                     .newInstance(interacao.id)
                     .show(supportFragmentManager, "editar")
-
             } else {
-
-                Toast.makeText(
-                    this,
-                    "Selecione uma interação",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this, "Selecione uma interação", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.btnDeletar.setOnClickListener {
             interacaoSelecionada = null
+            adapter.idSelecionado = null
+            adapter.notifyDataSetChanged()
             atualizarEstadoBotaoFalar()
         }
     }
 
-    // --- CORREÇÃO AQUI: Centralizamos toda a lógica visual nesta função ---
     private fun atualizarEstadoBotaoFalar() {
         val modoResponsavelAtivo = ModoResponsavelManager.isAtivo(this)
         val modoFala = FalaAutomaticaManager.isAtivo(this)
@@ -352,7 +296,6 @@ class Home : AppCompatActivity() {
             }
 
         } else {
-            // Estado neutro: nada selecionado
             if (modoResponsavelAtivo) {
                 binding.btnFalar.setTextColor(ContextCompat.getColor(this, R.color.primary))
                 binding.btnFalar.backgroundTintList =
@@ -379,11 +322,8 @@ class Home : AppCompatActivity() {
     }
 
     private fun carregarInteracoesLocais() {
-
         lifecycleScope.launch(Dispatchers.IO) {
-
             val lista = dbLocal.interacaoDao().getAll()
-
             withContext(Dispatchers.Main) {
                 atualizarLista(lista)
             }
@@ -391,20 +331,15 @@ class Home : AppCompatActivity() {
     }
 
     private fun observarInteracoesRemotas() {
-
         val uid = userId ?: return
 
         listenerRegistration = firestore.collection("usuarios")
             .document(uid)
             .collection("interacoes")
             .addSnapshotListener { snapshot, error ->
-
-                if (error != null || snapshot == null) {
-                    return@addSnapshotListener
-                }
+                if (error != null || snapshot == null) return@addSnapshotListener
 
                 lifecycleScope.launch(Dispatchers.IO) {
-
                     val lista = snapshot.documents.mapNotNull { doc ->
                         doc.toObject(Interacao::class.java)
                     }
@@ -419,101 +354,67 @@ class Home : AppCompatActivity() {
     }
 
     private fun atualizarLista(lista: List<Interacao>) {
-
         listaOriginal.clear()
         listaOriginal.addAll(lista)
 
-        adapter.submitList(lista.toList())
+        val queryAtual = binding.searchView.query?.toString()
+        filtrarInteracoes(queryAtual)
     }
+
     private fun filtrarInteracoes(texto: String?) {
-
         val resultado = if (texto.isNullOrBlank()) {
-
             listaOriginal
-
         } else {
-
             listaOriginal.filter {
                 it.titulo.contains(texto, ignoreCase = true)
             }
         }
-
         adapter.submitList(resultado.toList())
     }
 
     override fun onDestroy() {
-
         listenerRegistration?.remove()
-
         if (::tts.isInitialized) {
             tts.stop()
             tts.shutdown()
         }
-
         super.onDestroy()
     }
 
     override fun onResume() {
         super.onResume()
-
-        // Garante que a checagem das cores ocorra toda vez que você volta do popup de configurações!
         atualizarEstadoBotaoFalar()
 
         if (listaOriginal.isNotEmpty()) {
-            adapter.submitList(listaOriginal.toList())
+            val queryAtual = binding.searchView.query?.toString()
+            filtrarInteracoes(queryAtual)
         }
     }
 
     private fun verificarCadastroResponsavel() {
-
         val uid = userId ?: return
 
         firestore.collection("usuarios")
             .document(uid)
             .get()
             .addOnSuccessListener { doc ->
+                val maiorDeIdade = doc.getBoolean("maiorDeIdade") ?: false
+                val responsavelConfigurado = doc.getBoolean("responsavelConfigurado") ?: false
 
-                val maiorDeIdade =
-                    doc.getBoolean("maiorDeIdade") ?: false
-
-                val responsavelConfigurado =
-                    doc.getBoolean("responsavelConfigurado") ?: false
-
-                if (
-                    maiorDeIdade &&
-                    !responsavelConfigurado
-                ) {
-
+                if (maiorDeIdade && !responsavelConfigurado) {
                     cadSenhaResp()
                 }
             }
     }
 
     private fun cadSenhaResp() {
-
-        if (
-            supportFragmentManager.findFragmentByTag("CriarSenhaResp")
-            == null
-        ) {
-
-            val fragment =
-                CriarSenhaRespFragment()
-
+        if (supportFragmentManager.findFragmentByTag("CriarSenhaResp") == null) {
+            val fragment = CriarSenhaRespFragment()
             val bundle = Bundle()
-
-            bundle.putString(
-                "flow",
-                TipoDeFluxo.CADASTRO.name
-            )
-
+            bundle.putString("flow", TipoDeFluxo.CADASTRO.name)
             fragment.arguments = bundle
-
             fragment.isCancelable = false
-
-            fragment.show(
-                supportFragmentManager,
-                "CriarSenhaResp"
-            )
+            fragment.show(supportFragmentManager, "CriarSenhaResp")
         }
     }
 }

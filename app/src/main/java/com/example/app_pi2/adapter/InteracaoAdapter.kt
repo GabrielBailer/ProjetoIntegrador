@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,6 +16,8 @@ class InteracaoAdapter(
     private val onItemClick: (Interacao) -> Unit,
     private val onLongClick: (Interacao) -> Unit
 ) : ListAdapter<Interacao, InteracaoAdapter.InteracaoViewHolder>(DiffCallback()) {
+
+    var idSelecionado: String? = null
 
     init {
         setHasStableIds(true)
@@ -46,8 +49,10 @@ class InteracaoAdapter(
         holder: InteracaoViewHolder,
         position: Int
     ) {
-
         val interacao = getItem(position)
+        val context = holder.itemView.context
+
+        val scale = context.resources.displayMetrics.density
 
         holder.binding.tvTitulo.text = interacao.titulo
 
@@ -67,7 +72,6 @@ class InteracaoAdapter(
                     .load(imagem)
                     .into(holder.binding.ivIcone)
             } else {
-                val context = holder.itemView.context
                 val resId = context.resources.getIdentifier(
                     imagem,
                     "drawable",
@@ -88,9 +92,19 @@ class InteracaoAdapter(
 
         if (background is GradientDrawable) {
             background.mutate()
-
             background.setColor(interacao.corInt)
         }
-    }
 
+        val cardView = holder.binding.root as com.google.android.material.card.MaterialCardView
+
+        if (interacao.id == idSelecionado) {
+            cardView.strokeWidth = (2 * scale).toInt()
+            cardView.strokeColor = ContextCompat.getColor(context, R.color.primary)
+            cardView.cardElevation = 2f * scale
+        } else {
+            cardView.strokeWidth = (1 * scale).toInt()
+            cardView.strokeColor = ContextCompat.getColor(context, android.R.color.darker_gray)
+            cardView.cardElevation = 3f * scale
+        }
+    }
 }

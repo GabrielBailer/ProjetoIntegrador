@@ -9,6 +9,6 @@ Um aplicativo criado para UC Projeto Integrador I, no Instituto Federal de Santa
 
 # Links Importantes
 
+- Site e APK do Aplicativo - https://fala-comigo-web-site.vercel.app/
 - Manual do usuário - https://drive.google.com/file/d/1cRkFylfW1vVWTLkl7hlMJYv-wPT2G2wR/view?usp=sharing
-- Vídeo demonstração - https://drive.google.com/file/d/1wypL2eKZv9L86acBkT4NK-OxypGyg4mS/view?usp=sharing
   
