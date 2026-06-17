@@ -1,14 +1,24 @@
-# ProjetoIntegrador - Aplicativo Fala Comigo! - Para crianças autistas não verbais
+# 🗣️ Fala Comigo!
+**Comunicação Alternativa e Aumentativa para Pessoas Autistas Não Verbais**
 
-Um aplicativo criado para UC Projeto Integrador I, no Instituto Federal de Santa Catarina Câmpus Gaspar. Que reinventar a forma como crianças autistas não verbais se comunicam no ambiente escolar. Mais do que uma ferramenta digital, ele foi pensado como uma ponte entre o mundo interior dessas crianças e as pessoas que cuidam, ensinam e convivem com elas todos os dias.
+---
 
-# Autores do Projeto
+## 📖 Sobre o Projeto
 
-- Gabriel Bailer Matias (202320005818)
-- Marianna Ghisi Bueno (202110806275)
+O **Fala Comigo!** é um aplicativo desenvolvido para as Unidades Curriculares de Projeto Integrador I e II do **Instituto Federal de Santa Catarina (IFSC) - Câmpus Gaspar**. 
 
-# Links Importantes
+O objetivo do projeto é transformar e facilitar a forma como crianças e adultos autistas não verbais se comunicam em seu dia a dia. Mais do que uma ferramenta digital de acessibilidade, o aplicativo foi cuidadosamente projetado para atuar como uma ponte entre o mundo interior de seus usuários e as pessoas que os cercam — familiares, educadores e cuidadores —, promovendo maior autonomia, inclusão e qualidade de vida.
 
-- Site e APK do Aplicativo - https://fala-comigo-web-site.vercel.app/
-- Manual do usuário - https://drive.google.com/file/d/1cRkFylfW1vVWTLkl7hlMJYv-wPT2G2wR/view?usp=sharing
-  
+## 🔗 Links Importantes
+
+- 🌐 **Site Oficial e Download do APK:** [Acessar o Portal Fala Comigo!](https://fala-comigo-web-site.vercel.app/)
+- 📚 **Manual do Usuário:** [Ler a Documentação do Aplicativo](https://drive.google.com/file/d/1cRkFylfW1vVWTLkl7hlMJYv-wPT2G2wR/view?usp=sharing)
+
+## 👥 Autores e Instituição
+
+**Desenvolvedores:**
+* **Gabriel Bailer Matias** (Matrícula: 202320005818)
+* **Marianna Ghisi Bueno** (Matrícula: 202110806275)
+
+---
+*Projeto desenvolvido no contexto acadêmico do IFSC Câmpus Gaspar.*
