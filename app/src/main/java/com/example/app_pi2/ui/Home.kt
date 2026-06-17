@@ -108,7 +108,15 @@ class Home : AppCompatActivity() {
                     val texto = interacao.titulo.trim()
                     tts.speak(texto, TextToSpeech.QUEUE_FLUSH, null, null)
 
+                    // CORREÇÃO AQUI: Agora ele também atualiza o visual (borda)
+                    // e mantém a última interação falada em destaque.
+                    interacaoSelecionada = interacao
+                    adapter.idSelecionado = interacao.id
+                    adapter.notifyDataSetChanged()
+                    atualizarEstadoBotaoFalar()
+
                 } else {
+                    // Lógica para selecionar ou desmarcar a interação clicada
                     if (interacaoSelecionada?.id == interacao.id) {
                         interacaoSelecionada = null
                         adapter.idSelecionado = null
