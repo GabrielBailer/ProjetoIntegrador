@@ -8,19 +8,32 @@
     android:fitsSystemWindows="true"
     android:padding="20dp">
 
+    <TextView
+        android:id="@+id/tv_titulo_criar_senha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Criar Senha Responsável"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/edit_nova_senha"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:hint="Senha"
         android:background="@drawable/bg_edittext"
         android:padding="12dp"
         android:textColorHint="@color/text_secondary"
         android:textColor="@color/text_primary"
         android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@+id/tv_titulo_criar_senha"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/edit_confirmar_senha"

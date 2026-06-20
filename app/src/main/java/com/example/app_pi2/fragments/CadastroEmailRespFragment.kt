@@ -65,10 +65,17 @@ class CadastroEmailRespFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
+
+        // 1. Padronizado para 90% da tela igual aos outros modais
+        val width = (resources.displayMetrics.widthPixels * 0.90).toInt()
+
         dialog?.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
+            width,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+
+        // 2. Aqui está a linha mágica da transparência para os cantos aparecerem!
+        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
     private fun enviarCodigoResponsavel(emailDestino: String) {
