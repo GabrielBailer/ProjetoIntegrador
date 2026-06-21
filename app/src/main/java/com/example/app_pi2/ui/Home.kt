@@ -328,15 +328,6 @@ class Home : AppCompatActivity() {
         }
     }
 
-    private fun carregarInteracoesLocais() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val lista = dbLocal.interacaoDao().getAll()
-            withContext(Dispatchers.Main) {
-                atualizarLista(lista)
-            }
-        }
-    }
-
     private fun observarInteracoesRemotas() {
         val uid = userId ?: return
 
