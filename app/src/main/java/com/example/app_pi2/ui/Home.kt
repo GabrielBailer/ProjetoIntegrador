@@ -92,7 +92,6 @@ class Home : AppCompatActivity() {
 
         atualizarEstadoBotaoFalar()
 
-        carregarInteracoesLocais()
         observarInteracoesRemotas()
     }
 
@@ -283,7 +282,7 @@ class Home : AppCompatActivity() {
             }
         }
 
-        if (interacaoSelecionada != null) {
+        if (interacaoSelecionada != null && !modoFala) {
             binding.btnFalar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.primary)
             binding.btnFalar.setTextColor(ContextCompat.getColor(this, R.color.on_primary))
             binding.btnFalar.iconTint = ContextCompat.getColorStateList(this, R.color.on_primary)
