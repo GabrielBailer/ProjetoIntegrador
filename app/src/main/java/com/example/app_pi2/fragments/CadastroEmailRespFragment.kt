@@ -66,7 +66,6 @@ class CadastroEmailRespFragment : DialogFragment() {
     override fun onStart() {
         super.onStart()
 
-        // 1. Padronizado para 90% da tela igual aos outros modais
         val width = (resources.displayMetrics.widthPixels * 0.90).toInt()
 
         dialog?.window?.setLayout(
@@ -74,7 +73,6 @@ class CadastroEmailRespFragment : DialogFragment() {
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
 
-        // 2. Aqui está a linha mágica da transparência para os cantos aparecerem!
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
@@ -96,7 +94,6 @@ class CadastroEmailRespFragment : DialogFragment() {
                 val bundle = Bundle()
                 bundle.putString("email", emailDestino)
 
-                // ✅ CORRETO
                 bundle.putString("flow", tipo.name)
 
                 fragment.arguments = bundle
