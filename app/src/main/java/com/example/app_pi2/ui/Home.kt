@@ -91,7 +91,6 @@ class Home : AppCompatActivity() {
 
         atualizarEstadoBotaoFalar()
 
-        carregarInteracoesLocais()
         observarInteracoesRemotas()
     }
 
@@ -280,7 +279,7 @@ class Home : AppCompatActivity() {
             }
         }
 
-        if (interacaoSelecionada != null) {
+        if (interacaoSelecionada != null && !modoFala) {
             binding.btnFalar.backgroundTintList = ContextCompat.getColorStateList(this, R.color.primary)
             binding.btnFalar.setTextColor(ContextCompat.getColor(this, R.color.on_primary))
             binding.btnFalar.iconTint = ContextCompat.getColorStateList(this, R.color.on_primary)
@@ -322,15 +321,6 @@ class Home : AppCompatActivity() {
                     ContextCompat.getColorStateList(this, R.color.bg_secondary)
                 binding.btnDeletar.iconTint =
                     ContextCompat.getColorStateList(this, R.color.text_secondary)
-            }
-        }
-    }
-
-    private fun carregarInteracoesLocais() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val lista = dbLocal.interacaoDao().getAll()
-            withContext(Dispatchers.Main) {
-                atualizarLista(lista)
             }
         }
     }
