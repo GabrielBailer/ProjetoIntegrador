@@ -11,8 +11,8 @@ O objetivo do projeto é transformar e facilitar a forma como crianças e adulto
 
 ## 🔗 Links Importantes
 
-- 🌐 **Site Oficial e Download do APK:** [Acessar o Portal Fala Comigo!](https://fala-comigo-web-site.vercel.app/)
-- 📚 **Manual do Usuário:** [Ler a Documentação do Aplicativo](https://drive.google.com/file/d/1cRkFylfW1vVWTLkl7hlMJYv-wPT2G2wR/view?usp=sharing)
+- 🌐 **Site Oficial e Download do APK:** [Acessar o Site - Fala Comigo!](https://fala-comigo-web-site.vercel.app/)
+- 📚 **Manual do Usuário:** [Vídeo Manual do Aplicativo](https://drive.google.com/file/d/15y6rnAg8fPNTmInIHQxSeMU1aekBz-99/view?usp=sharing)
 
 ## 👥 Autores e Instituição
 
